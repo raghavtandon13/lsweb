@@ -66,8 +66,8 @@ export default function HomePage() {
               Personal, gold and business loans from partner NBFCs. Start with name and mobile — free to check.
             </p>
             <BtnRow className="mt-6 sm:mt-8">
-              <ButtonLink href="#loans" variant="gold" size="lg" className="w-full sm:w-auto">
-                View loans <ArrowRight className="h-5 w-5" />
+              <ButtonLink href="/apply" variant="gold" size="lg" className="w-full sm:w-auto">
+                Apply now <ArrowRight className="h-5 w-5" />
               </ButtonLink>
               <ButtonLink href="/help" variant="outline" size="lg" className="w-full sm:w-auto">
                 How it works
