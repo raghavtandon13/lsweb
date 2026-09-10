@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { loadApply } from "@/lib/session";
 import { trackFunnel } from "@/lib/analytics";
 import { ButtonLink } from "@/components/ui/button-link";
+import { EditDetailsBar } from "@/components/apply/edit-details-bar";
 
 export default function NoOfferPage() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function NoOfferPage() {
   }, [router]);
 
   return (
+    <>
+      <EditDetailsBar />
     <div className="card p-8">
       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Outcome</p>
       <h1 className="mt-2 font-serif text-3xl text-navy">No offer available right now</h1>
@@ -37,5 +40,6 @@ export default function NoOfferPage() {
         </ButtonLink>
       </div>
     </div>
+    </>
   );
 }

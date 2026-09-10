@@ -1,5 +1,10 @@
 import { useMemo } from "react";
-import { useNavigate, useLocation, useParams as useRouteParams } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+  useParams as useRouteParams,
+  useSearchParams as useRouteSearchParams,
+} from "react-router-dom";
 
 export function useRouter() {
   const navigate = useNavigate();
@@ -15,6 +20,11 @@ export function useRouter() {
 
 export function usePathname() {
   return useLocation().pathname;
+}
+
+export function useSearchParams() {
+  const [params] = useRouteSearchParams();
+  return params;
 }
 
 export function useParams<T extends Record<string, string | undefined>>() {

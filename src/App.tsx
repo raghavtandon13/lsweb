@@ -24,6 +24,8 @@ import DetailsPage from "@/app/(apply)/apply/details/page";
 import ConsentPage from "@/app/(apply)/apply/consent/page";
 import ProcessingPage from "@/app/(apply)/apply/processing/page";
 import OffersPage from "@/app/(apply)/apply/offers/page";
+import CibilPage from "@/app/(apply)/apply/cibil/page";
+import CibilDetailsPage from "@/app/(apply)/apply/cibil/details/page";
 import NoOfferPage from "@/app/(apply)/apply/no-offer/page";
 import LoginPage from "@/app/(account)/login/page";
 import DashboardHomePage from "@/app/(account)/dashboard/page";
@@ -80,6 +82,8 @@ export default function App() {
         <Route path="/apply/details" element={<DetailsPage />} />
         <Route path="/apply/consent" element={<ConsentPage />} />
         <Route path="/apply/processing" element={<ProcessingPage />} />
+        <Route path="/apply/cibil" element={<CibilPage />} />
+        <Route path="/apply/cibil/details" element={<CibilDetailsPage />} />
         <Route path="/apply/offers" element={<OffersPage />} />
         <Route path="/apply/no-offer" element={<NoOfferPage />} />
       </Route>

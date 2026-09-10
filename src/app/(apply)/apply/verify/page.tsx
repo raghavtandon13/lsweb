@@ -57,6 +57,12 @@ export default function VerifyPage() {
       <Button type="submit" size="lg" className="mt-6 w-full">
         Verify
       </Button>
+      <p className="mt-4 text-center text-sm text-muted">
+        Wrong number?{" "}
+        <button type="button" className="font-semibold text-spark-gold hover:underline" onClick={() => router.push("/apply")}>
+          Edit mobile
+        </button>
+      </p>
     </form>
   );
 }

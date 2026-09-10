@@ -3,10 +3,10 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 
 const steps = [
-  { n: "1", title: "Name & mobile", body: "We send an OTP to your number.", hue: "text-spark-gold" },
-  { n: "2", title: "Basic details", body: "Pincode, income, work type and date of birth.", hue: "text-spark-mint" },
-  { n: "3", title: "Consent", body: "Credit check and sharing with lenders — only if you tick.", hue: "text-spark-sky" },
-  { n: "4", title: "See offers", body: "Compare loan offers, or we tell you if none match.", hue: "text-spark-coral" },
+  { n: "1", title: "Name & OTP", body: "We send an OTP to your number.", hue: "text-spark-gold" },
+  { n: "2", title: "Basic details", body: "PAN, pincode, income, work type and date of birth.", hue: "text-spark-mint" },
+  { n: "3", title: "CIBIL OTP", body: "Soft check with consents. It will not affect your score.", hue: "text-spark-sky" },
+  { n: "4", title: "Score & lenders", body: "See your CIBIL snapshot, then eligible partner offers.", hue: "text-spark-coral" },
 ];
 
 export function HowItWorksPreview() {

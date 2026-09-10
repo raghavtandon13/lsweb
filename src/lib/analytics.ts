@@ -10,7 +10,7 @@ export const FUNNEL_STEPS = {
   2: "otp",
   3: "profile",
   4: "consent",
-  5: "eligibility",
+  5: "cibil",
   6: "offers",
   7: "no_offer",
 } as const;
@@ -20,7 +20,9 @@ const PATH_FUNNEL: Record<string, { step: number; name: string }> = {
   "/apply/verify": { step: 2, name: "otp_view" },
   "/apply/details": { step: 3, name: "profile_view" },
   "/apply/consent": { step: 4, name: "consent_view" },
-  "/apply/processing": { step: 5, name: "eligibility_view" },
+  "/apply/processing": { step: 4, name: "cibil_fetch_view" },
+  "/apply/cibil": { step: 5, name: "cibil_view" },
+  "/apply/cibil/details": { step: 5, name: "cibil_details_view" },
   "/apply/offers": { step: 6, name: "offers_view" },
   "/apply/no-offer": { step: 7, name: "no_offer_view" },
 };

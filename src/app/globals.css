@@ -640,3 +640,15 @@ h3,
     display: none;
   }
 }
+
+.apply-journey a,
+.apply-journey button {
+  transition: none;
+}
+.apply-journey a:hover,
+.apply-journey button:hover {
+  transform: none;
+}
+.apply-journey * {
+  animation: none !important;
+}

@@ -1,3 +1,5 @@
+import type { CibilReport } from "@/lib/cibil";
+
 export const APPLY_KEY = "loansparrow.apply";
 export const AUTH_KEY = "loansparrow.auth";
 
@@ -20,6 +22,9 @@ export type ApplyState = {
   income?: string;
   employment?: EmploymentType;
   dob?: string;
+  email?: string;
+  amount?: string;
+  purpose?: string;
   consents?: {
     bureau: boolean;
     shareLenders: boolean;
@@ -29,6 +34,8 @@ export type ApplyState = {
   termsAccepted?: boolean;
   applicationId?: string;
   status?: "draft" | "processing" | "eligible" | "no_offer";
+  cibilOtpVerified?: boolean;
+  cibil?: CibilReport;
 };
 
 export type AuthState = {
@@ -83,4 +90,8 @@ export function isValidMobile(mobile: string) {
 
 export function isValidPincode(pincode: string) {
   return /^[1-9][0-9]{5}$/.test(pincode);
+}
+
+export function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim().toLowerCase());
 }

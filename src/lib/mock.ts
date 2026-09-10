@@ -9,6 +9,8 @@ export type Offer = {
   emi: number;
   disbursal: string;
   highlights: string[];
+  why?: string;
+  productSlug?: string;
   recommended?: boolean;
 };
 
@@ -40,6 +42,8 @@ export const mockOffers: Offer[] = [
     emi: 7_346,
     disbursal: "24–48 hrs after KYC",
     highlights: ["No foreclosure in first 45 days", "NACH optional"],
+    why: "Income and pincode match this lender’s short-term book.",
+    productSlug: "short-term-personal",
     recommended: true,
   },
   {
@@ -53,6 +57,8 @@ export const mockOffers: Offer[] = [
     emi: 5_912,
     disbursal: "3 working days",
     highlights: ["Insurance optional", "Part-prepay after 3 EMIs"],
+    why: "Lower ROI for 24-month tenure on this profile.",
+    productSlug: "personal",
   },
   {
     id: "off_03",
@@ -65,6 +71,8 @@ export const mockOffers: Offer[] = [
     emi: 25_500,
     disbursal: "Same day",
     highlights: ["Bullet repayment on salary date"],
+    why: "Small ticket, salary-cycle repayment.",
+    productSlug: "payday",
   },
 ];
 

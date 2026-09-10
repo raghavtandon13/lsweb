@@ -13,12 +13,12 @@ const beats = [
     d: "Pincode, monthly income, employment type and date of birth. This helps lenders check if they can offer you a loan.",
   },
   {
-    t: "Give consent",
-    d: "You choose credit bureau check, sharing with partner lenders, and terms. WhatsApp updates are optional.",
+    t: "CIBIL OTP and consents",
+    d: "A soft CIBIL OTP plus one-line checkboxes. It will not affect your score. WhatsApp is optional.",
   },
   {
-    t: "See offers",
-    d: "If a partner can lend, you see amount, interest, fees and tenure. If not, we show other options such as gold or FD.",
+    t: "See CIBIL and lenders",
+    d: "Your score snapshot first, then eligible partner offers — or other options if none match.",
   },
   {
     t: "Complete KYC with the lender",

@@ -25,7 +25,7 @@ export const faqs = [
       },
       {
         q: "Does checking eligibility affect my CIBIL score?",
-        a: "A hard enquiry happens only after you tick consent. Soft eligibility (mobile, PAN format, pincode serviceability) does not by itself create a bureau enquiry.",
+        a: "The matching step is a soft CIBIL enquiry — it will not affect your score. A hard pull happens only if you accept a lender’s offer and continue KYC with them.",
       },
       {
         q: "How long is an offer valid?",
