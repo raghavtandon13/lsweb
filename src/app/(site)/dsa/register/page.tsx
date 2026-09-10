@@ -23,13 +23,13 @@ export default function DsaRegisterPage() {
         title="DSA registration"
         body="For agents who source loan applications. Lending partners should use NBFC registration from Partner with us."
       />
-      <Container className="py-16">
+      <Container className="py-10 lg:py-12">
         {sent ? (
           <p className="card mx-auto max-w-xl p-8 font-serif text-2xl text-navy">
             Registration received. We will contact you after review.
           </p>
         ) : (
-          <form onSubmit={onSubmit} className="card mx-auto max-w-xl space-y-5 p-8">
+          <form onSubmit={onSubmit} className="card mx-auto max-w-xl space-y-5 p-5 sm:p-8">
             <Field label="Full name">
               <input className="input" name="name" required />
             </Field>

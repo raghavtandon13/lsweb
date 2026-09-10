@@ -52,7 +52,7 @@ export default function ApplyStartPage() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="card p-7 sm:p-8">
+    <form onSubmit={onSubmit} className="card p-5 sm:p-8">
       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Step 1</p>
       <h1 className="mt-2 font-serif text-3xl text-navy">Enter name and mobile</h1>
       <p className="mt-2 text-sm leading-6 text-muted">

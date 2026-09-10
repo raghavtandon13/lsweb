@@ -12,18 +12,18 @@ export default function CreditReportPage() {
   return (
     <>
       <PageHero
-        eyebrow="Tools"
+        eyebrow="Credit"
         title="Credit report"
         body="See accounts, payments and enquiries. Live report data needs your consent and the bureau API."
       />
-      <Container className="py-16">
+      <Container className="py-10 lg:py-12">
         <div className="card overflow-hidden">
-          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line px-6 py-5">
+          <div className="flex flex-col gap-4 border-b border-line px-5 py-5 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:px-6">
             <div>
               <p className="text-[11px] uppercase tracking-wider text-gold-deep">Sample report layout</p>
               <h2 className="font-serif text-2xl text-navy">Tradelines</h2>
             </div>
-            <ButtonLink href="/apply" size="sm">
+            <ButtonLink href="/apply" size="sm" className="w-full sm:w-auto">
               Unlock with consent
             </ButtonLink>
           </div>

@@ -12,38 +12,43 @@ const icons = [
 
 export function SparrowFlight() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block" aria-hidden>
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1440 780" preserveAspectRatio="xMinYMid slice">
         <defs>
           <linearGradient id="sparrow-trail" x1="0" y1="1" x2="0.35" y2="0">
-            <stop offset="0%" stopColor="var(--navy)" stopOpacity="0" />
-            <stop offset="50%" stopColor="var(--navy)" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="var(--navy)" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--spark-mint)" stopOpacity="0" />
+            <stop offset="42%" stopColor="var(--spark-gold)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--spark-coral)" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="sparrow-trail-two" x1="0" y1="1" x2="0.2" y2="0">
+            <stop offset="0%" stopColor="var(--spark-sky)" stopOpacity="0" />
+            <stop offset="50%" stopColor="var(--spark-lilac)" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="var(--spark-mint)" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
           d="M90 700 C 180 560, 40 470, 210 360 C 360 250, 90 180, 280 70 C 360 10, 420 -40, 480 -80"
           fill="none"
           stroke="url(#sparrow-trail)"
-          strokeWidth="2"
+          strokeWidth="2.4"
           strokeDasharray="7 12"
           className="sparrow-dash"
         />
         <path
           d="M240 740 C 80 600, 300 490, 120 360 C 20 250, 250 170, 110 40"
           fill="none"
-          stroke="color-mix(in srgb, var(--navy) 10%, transparent)"
-          strokeWidth="1.5"
+          stroke="url(#sparrow-trail-two)"
+          strokeWidth="1.6"
           strokeDasharray="4 10"
           className="sparrow-dash sparrow-dash-slow"
         />
       </svg>
 
       <div className="sparrow-flyer">
-        <SparrowMark className="h-[72px] w-[90px] text-navy drop-shadow-[0_12px_18px_rgba(13,59,63,0.28)] sm:h-[86px] sm:w-[108px]" />
+        <SparrowMark className="h-[72px] w-[90px] text-navy sm:h-[86px] sm:w-[108px]" />
       </div>
       <div className="sparrow-flyer sparrow-flyer-two">
-        <SparrowMark className="h-12 w-[60px] text-navy/55 sm:h-14 sm:w-[72px]" />
+        <SparrowMark className="h-12 w-[60px] text-spark-gold/80 sm:h-14 sm:w-[72px]" />
       </div>
 
       {icons.map(({ Icon, className, label }) => (
@@ -51,6 +56,9 @@ export function SparrowFlight() {
           <Icon className="h-4 w-4" strokeWidth={2.2} />
         </span>
       ))}
+      <span className="sparrow-spark sparrow-spark-a" />
+      <span className="sparrow-spark sparrow-spark-b" />
+      <span className="sparrow-spark sparrow-spark-c" />
     </div>
   );
 }

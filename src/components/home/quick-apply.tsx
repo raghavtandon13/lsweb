@@ -52,8 +52,8 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
         !embedded && "rounded-3xl",
       )}
     >
-      <div className="h-1.5 bg-gradient-to-r from-gold via-navy-soft to-navy" />
-      <form onSubmit={onSubmit} className="p-6 sm:p-8">
+      <div className="h-1.5 bg-gradient-to-r from-spark-gold via-spark-mint to-navy" />
+      <form onSubmit={onSubmit} className="p-5 sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-gold-deep">Get your loan offer</p>
         <h2 className="mt-3 font-serif text-3xl text-navy">Start in 2 minutes</h2>
         <p className="mt-2 text-base text-ink">Enter your name and mobile. We send an OTP next.</p>

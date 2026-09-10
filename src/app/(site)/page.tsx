@@ -1,6 +1,7 @@
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { homeFaqs } from "@/lib/faqs";
 import { trustMarks } from "@/lib/site";
+import { BtnRow } from "@/components/ui/btn-row";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container, SectionHeading } from "@/components/ui/container";
 import { Accordion } from "@/components/ui/accordion";
@@ -48,32 +49,34 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <FinanceScene />
         <SparrowFlight />
-        <Container className="relative grid items-center gap-10 py-14 lg:grid-cols-12 lg:gap-14 lg:py-20">
-          <div className="lg:col-span-7">
-            <p className="mb-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-gold-deep">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-navy text-white shadow-lift">
+        <Container className="relative grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-12 lg:gap-14 lg:py-20">
+          <div className="min-w-0 lg:col-span-7">
+            <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-deep sm:mb-4 sm:text-sm">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-navy text-white shadow-lift ring-2 ring-spark-gold/80 sm:h-8 sm:w-8">
                 <SparrowMark className="h-4 w-5 text-white" />
               </span>
               LoanSparrow
             </p>
-            <h1 className="max-w-xl font-sans text-4xl font-semibold leading-tight tracking-tight text-navy sm:text-5xl lg:text-[56px]">
-              Fast-track your loan approvals...
+            <h1 className="max-w-xl font-sans text-[1.75rem] font-semibold leading-tight tracking-tight text-navy sm:text-4xl lg:text-5xl xl:text-[56px]">
+              Fast-track your{" "}
+              <span className="text-spark-gold">loan approvals ...</span>
+              
             </h1>
-            <p className="mt-6 max-w-xl text-xl leading-8 text-ink">
+            <p className="mt-4 max-w-xl text-base leading-7 text-ink sm:mt-6 sm:text-xl sm:leading-8">
               Personal, gold and business loans from partner NBFCs. Start with name and mobile — free to check.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="#products" variant="gold" size="lg">
-                View loan products <ArrowRight className="h-5 w-5" />
+            <BtnRow className="mt-6 sm:mt-8">
+              <ButtonLink href="#loans" variant="gold" size="lg" className="w-full sm:w-auto">
+                View loans <ArrowRight className="h-5 w-5" />
               </ButtonLink>
-              <ButtonLink href="/how-it-works" variant="outline" size="lg">
+              <ButtonLink href="/help" variant="outline" size="lg" className="w-full sm:w-auto">
                 How it works
               </ButtonLink>
-            </div>
-            <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+            </BtnRow>
+            <ul className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2">
               {trustMarks.map((t) => (
                 <li key={t} className="flex items-center gap-2 text-base font-medium text-navy">
-                  <BadgeCheck className="h-5 w-5 shrink-0 text-gold" />
+                  <BadgeCheck className="h-5 w-5 shrink-0 text-spark-leaf" />
                   {t}
                 </li>
               ))}
@@ -92,7 +95,7 @@ export default function HomePage() {
       <WhyChoose />
       <HowItWorksPreview />
 
-      <section className="relative overflow-hidden border-y border-line bg-white py-16 lg:py-24">
+      <section className="relative overflow-hidden border-y border-line bg-white py-12 sm:py-16 lg:py-24">
         <FinanceWhisper side="right" />
         <Container className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -101,22 +104,22 @@ export default function HomePage() {
               title="Know your score before you apply"
               body="Understand what lenders look at — payment history, card utilisation and recent enquiries."
             />
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/credit-score" variant="gold">
+            <BtnRow className="mt-8">
+              <ButtonLink href="/credit-score" variant="gold" className="w-full sm:w-auto">
                 Check your credit score
               </ButtonLink>
-              <ButtonLink href="/credit-health" variant="outline">
+              <ButtonLink href="/credit-health" variant="outline" className="w-full sm:w-auto">
                 Improve credit health
               </ButtonLink>
-            </div>
-            <div className="mt-8 grid grid-cols-3 gap-3">
+            </BtnRow>
+            <div className="mt-6 grid grid-cols-1 gap-2 sm:mt-8 sm:grid-cols-3 sm:gap-3">
               {[
-                ["300–900", "Score range"],
-                ["30%", "Ideal card use"],
-                ["On-time", "EMIs matter"],
-              ].map(([v, l]) => (
-                <div key={l} className="rounded-2xl border border-line bg-ivory p-5">
-                  <p className="font-serif text-2xl text-navy sm:text-3xl">{v}</p>
+                ["300–900", "Score range", "text-spark-mint"],
+                ["30%", "Ideal card use", "text-spark-gold"],
+                ["On-time", "EMIs matter", "text-spark-leaf"],
+              ].map(([v, l, hue]) => (
+                <div key={l} className="rounded-2xl border border-line bg-ivory p-4 sm:p-5">
+                  <p className={`font-serif text-xl sm:text-2xl lg:text-3xl ${hue}`}>{v}</p>
                   <p className="mt-1 text-sm font-medium text-ink">{l}</p>
                 </div>
               ))}
@@ -128,7 +131,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="bg-ivory py-16 lg:py-24">
+      <section className="bg-ivory py-12 sm:py-16 lg:py-24">
         <Container>
           <SectionHeading eyebrow="Customers" title="What borrowers say" align="center" />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -148,7 +151,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-white py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-white py-12 sm:py-16 lg:py-24">
         <FinanceWhisper side="left" />
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <SectionHeading
@@ -158,7 +161,7 @@ export default function HomePage() {
           />
           <div>
             <Accordion items={homeFaqs} />
-            <Link href="/faqs" className="mt-5 inline-block text-base font-semibold text-gold-deep">
+            <Link href="/help/faqs" className="mt-5 inline-block text-base font-semibold text-gold-deep">
               View all FAQs →
             </Link>
           </div>

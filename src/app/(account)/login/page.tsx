@@ -42,7 +42,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-full flex-col items-center justify-center overflow-hidden bg-white px-5 py-16">
+    <div className="relative flex min-h-full flex-col items-center justify-center overflow-x-clip bg-white px-4 py-10 sm:px-5 sm:py-16">
       <FinanceBackdrop />
       <div className="relative z-10 flex w-full max-w-md flex-col items-center">
       <div className="flex w-full items-center justify-between">
@@ -51,7 +51,7 @@ export default function LoginPage() {
       </div>
       <form
         onSubmit={step === "mobile" ? send : verify}
-        className="card mt-10 w-full max-w-md p-8"
+        className="card mt-8 w-full max-w-md p-5 sm:mt-10 sm:p-8"
       >
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Customer login</p>
         <h1 className="mt-2 font-serif text-3xl text-navy">

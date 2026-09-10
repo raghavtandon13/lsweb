@@ -7,11 +7,11 @@ export default function CreditScorePage() {
   return (
     <>
       <PageHero
-        eyebrow="Tools"
+        eyebrow="Credit"
         title="Check your Financial Kundli"
         body="See your score in a minute. We pull a live bureau score only after you give consent."
       />
-      <Container className="grid items-start gap-10 py-16 lg:grid-cols-2">
+      <Container className="grid items-start gap-10 py-10 lg:grid-cols-2 lg:py-12">
         <CreditScoreCheck />
         <div>
           <h2 className="font-serif text-3xl text-navy">What moves the number</h2>
@@ -29,7 +29,7 @@ export default function CreditScorePage() {
               <strong className="text-navy">Enquiries.</strong> Several hard pulls in a week look like distress.
             </li>
           </ul>
-          <ButtonLink href="/credit-report" variant="outline" className="mt-8">
+          <ButtonLink href="/credit-report" variant="outline" className="mt-8 w-full sm:w-auto">
             What’s in a report
           </ButtonLink>
         </div>

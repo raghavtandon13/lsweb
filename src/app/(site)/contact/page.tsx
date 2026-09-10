@@ -24,8 +24,8 @@ export default function ContactPage() {
         title="Contact us"
         body={`Email ${site.supportEmail} on working days. For a formal complaint, use Grievance Redressal.`}
       />
-      <Container className="grid gap-12 py-16 lg:grid-cols-12">
-        <form onSubmit={onSubmit} className="card space-y-5 p-7 lg:col-span-7">
+      <Container className="grid gap-8 py-10 lg:grid-cols-12 lg:py-12">
+        <form onSubmit={onSubmit} className="card space-y-5 p-5 sm:p-7 lg:col-span-7">
           {sent ? (
             <p className="font-serif text-2xl text-navy">Thank you. We have received your message.</p>
           ) : (
@@ -50,14 +50,14 @@ export default function ContactPage() {
               <Field label="Message">
                 <textarea className="input min-h-32" name="message" required />
               </Field>
-              <Button type="submit" size="lg">
+              <Button type="submit" size="lg" className="w-full sm:w-auto">
                 Send message
               </Button>
             </>
           )}
         </form>
         <aside className="lg:col-span-5">
-          <div className="rounded-2xl border border-line bg-white p-7">
+          <div className="rounded-2xl border border-line bg-white p-5 sm:p-7">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Reach</p>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-muted">
               <li>Phone {site.phone}</li>

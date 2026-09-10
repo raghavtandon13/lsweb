@@ -28,7 +28,7 @@ export const site = {
 };
 
 export const nav = {
-  products: [
+  loans: [
     { href: "/loans/payday", label: "Payday Loan", hint: "Salaries between cycles" },
     { href: "/loans/short-term-personal", label: "Short Term Personal Loan", hint: "1–12 months" },
     { href: "/loans/personal", label: "Personal Loan", hint: "Planned expenses" },
@@ -37,19 +37,20 @@ export const nav = {
     { href: "/loans/against-fd", label: "Loan Against FD", hint: "Liquidity without breaking FD" },
     { href: "/loans/card-against-fd", label: "Card Against FD", hint: "A card, secured by deposit" },
     { href: "/loans/unsecured-business", label: "Unsecured Business Loan", hint: "Working capital" },
+    { href: "/small-ticket-loans", label: "Small ticket loans", hint: "₹8K – ₹50K" },
   ],
-  tools: [
-    { href: "/credit-score", label: "Credit Score" },
-    { href: "/credit-report", label: "Credit Report" },
-    { href: "/credit-health", label: "Credit Health Improvement" },
-    { href: "/small-ticket-loans", label: "Small Ticket Size Loans" },
-    { href: "/emi-calculator", label: "EMI Calculator" },
+  credit: [
+    { href: "/credit-score", label: "Credit Score", hint: "Check your score" },
+    { href: "/credit-report", label: "Credit Report", hint: "Accounts and payments" },
+    { href: "/credit-health", label: "Credit Health", hint: "Improve your file" },
+    { href: "/loans/credit-card", label: "Credit Cards", hint: "Partner bank and NBFC cards" },
+    { href: "/emi-calculator", label: "EMI Calculator", hint: "Monthly EMI" },
   ],
-  company: [
-    { href: "/how-it-works", label: "How it works" },
-    { href: "/about", label: "About us" },
-    { href: "/faqs", label: "FAQs" },
-    { href: "/contact", label: "Contact" },
+  help: [
+    { href: "/help", label: "How it works" },
+    { href: "/help/faqs", label: "FAQs" },
+    { href: "/help/contact", label: "Contact us" },
+    { href: "/help/about", label: "About us" },
   ],
   partners: [
     { href: "/partner-with-us", label: "Partner with us" },

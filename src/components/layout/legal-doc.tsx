@@ -15,7 +15,7 @@ export function LegalDoc({
   return (
     <>
       <PageHero eyebrow={eyebrow} title={title} body={`Last updated ${updated}.`} />
-      <Container className="py-16">
+      <Container className="py-10 lg:py-12">
         <article className="prose-legal mx-auto max-w-3xl">{children}</article>
       </Container>
     </>

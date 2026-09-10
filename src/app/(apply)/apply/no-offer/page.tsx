@@ -26,11 +26,13 @@ export default function NoOfferPage() {
         You can try a gold loan, a card against FD, or improve credit health and apply again later.
       </p>
       <div className="mt-8 flex flex-col gap-3">
-        <ButtonLink href="/loans/gold">See gold loans</ButtonLink>
-        <ButtonLink href="/loans/card-against-fd" variant="outline">
+        <ButtonLink href="/loans/gold" className="w-full">
+          See gold loans
+        </ButtonLink>
+        <ButtonLink href="/loans/card-against-fd" variant="outline" className="w-full">
           Card against FD
         </ButtonLink>
-        <ButtonLink href="/credit-health" variant="ghost">
+        <ButtonLink href="/credit-health" variant="ghost" className="w-full">
           Credit health guide
         </ButtonLink>
       </div>

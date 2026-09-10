@@ -10,13 +10,15 @@ export default function NotFound() {
       <p className="mt-3 max-w-md text-muted">
         Check the menu, or start an eligibility check — that journey is always where we left it.
       </p>
-      <div className="mt-8 flex gap-3">
-        <ButtonLink href="/">Home</ButtonLink>
-        <ButtonLink href="/apply" variant="outline">
+      <div className="mt-8 flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
+        <ButtonLink href="/" className="w-full sm:w-auto">
+          Home
+        </ButtonLink>
+        <ButtonLink href="/apply" variant="outline" className="w-full sm:w-auto">
           Check eligibility
         </ButtonLink>
       </div>
-      <Link href="/contact" className="mt-6 text-sm text-gold-deep">
+      <Link href="/help/contact" className="mt-6 text-sm text-gold-deep">
         Contact
       </Link>
     </div>

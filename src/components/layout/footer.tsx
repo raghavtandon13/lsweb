@@ -1,24 +1,34 @@
 import Link from "next/link";
 import { nav, site } from "@/lib/site";
 import { Logo } from "@/components/layout/logo";
+import { BtnRow } from "@/components/ui/btn-row";
+import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-line bg-navy text-white">
-      <Container className="py-16">
+      <Container className="py-10 sm:py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
             <Logo dark />
             <p className="mt-5 max-w-sm text-base leading-8 text-white">{site.description}</p>
+            <BtnRow className="mt-6">
+              <ButtonLink href="/apply" variant="soft" size="sm" className="w-full sm:w-auto">
+                Check eligibility
+              </ButtonLink>
+              <ButtonLink href="/help/contact" variant="onDark" size="sm" className="w-full sm:w-auto">
+                Contact us
+              </ButtonLink>
+            </BtnRow>
             <p className="mt-6 text-sm uppercase tracking-[0.14em] text-gold">
               {site.legalName} · CIN {site.cin}
             </p>
           </div>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">Products</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">Loans</p>
             <ul className="mt-4 space-y-2">
-              {nav.products.slice(0, 6).map((p) => (
+              {nav.loans.slice(0, 6).map((p) => (
                 <li key={p.href}>
                   <Link href={p.href} className="text-base text-white hover:text-gold">
                     {p.label}
@@ -28,15 +38,17 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">Company</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">Credit & help</p>
             <ul className="mt-4 space-y-2">
-              {[...nav.company, { href: "/partner-with-us", label: "Partner with us" }].map((p) => (
-                <li key={p.href}>
-                  <Link href={p.href} className="text-base text-white hover:text-gold">
-                    {p.label}
-                  </Link>
-                </li>
-              ))}
+              {[...nav.credit.slice(0, 4), ...nav.help, { href: "/partner-with-us", label: "Partner with us" }].map(
+                (p) => (
+                  <li key={p.href}>
+                    <Link href={p.href} className="text-base text-white hover:text-gold">
+                      {p.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
           <div>

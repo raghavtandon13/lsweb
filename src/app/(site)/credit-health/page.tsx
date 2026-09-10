@@ -25,11 +25,11 @@ export default function CreditHealthPage() {
   return (
     <>
       <PageHero
-        eyebrow="Tools"
+        eyebrow="Credit"
         title="Improve your credit health"
         body="There is no overnight fix. Pay on time, keep card use low, and avoid too many loan applications."
       />
-      <Container className="grid gap-8 py-16 lg:grid-cols-2">
+      <Container className="grid gap-8 py-10 lg:grid-cols-2 lg:py-12">
         {plan.map((p) => (
           <article key={p.t} className="card p-7">
             <h2 className="font-serif text-2xl text-navy">{p.t}</h2>
@@ -37,8 +37,8 @@ export default function CreditHealthPage() {
           </article>
         ))}
       </Container>
-      <Container className="pb-20">
-        <ButtonLink href="/small-ticket-loans" variant="outline">
+      <Container className="pb-10">
+        <ButtonLink href="/small-ticket-loans" variant="outline" className="w-full sm:w-auto">
           If you still need a small amount
         </ButtonLink>
       </Container>

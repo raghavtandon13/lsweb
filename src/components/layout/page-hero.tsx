@@ -1,6 +1,7 @@
+import { InnerHeroMotion } from "@/components/brand/inner-hero-motion";
+import { BtnRow } from "@/components/ui/btn-row";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
-import { InnerHeroMotion } from "@/components/brand/inner-hero-motion";
 
 export function PageHero({
   eyebrow,
@@ -14,25 +15,29 @@ export function PageHero({
   actions?: boolean;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-ivory">
+    <section className="relative overflow-hidden border-b border-line bg-gradient-to-r from-ivory via-white to-[#fff8e8]">
       <InnerHeroMotion />
-      <Container className="relative py-14 sm:py-16 lg:py-20">
+      <Container className="relative flex min-h-0 flex-col justify-center py-6 sm:py-8 lg:py-9">
         {eyebrow && (
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-gold-deep">
+          <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-gold-deep sm:text-sm">
             {eyebrow}
           </p>
         )}
-        <h1 className="max-w-3xl font-serif text-4xl leading-[1.15] text-navy sm:text-5xl">{title}</h1>
-        {body && <p className="mt-5 max-w-2xl text-lg leading-8 text-ink">{body}</p>}
+        <h1 className="max-w-2xl font-serif text-[1.65rem] leading-tight text-navy sm:text-3xl lg:text-[2.05rem]">
+          {title}
+        </h1>
+        {body && (
+          <p className="mt-2 max-w-xl text-sm leading-6 text-ink sm:mt-2.5 sm:text-base sm:leading-7">{body}</p>
+        )}
         {actions && (
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/apply" variant="gold" size="lg">
+          <BtnRow className="mt-4 sm:mt-5">
+            <ButtonLink href="/apply" variant="gold" size="md" className="w-full sm:w-auto">
               Check eligibility
             </ButtonLink>
-            <ButtonLink href="/how-it-works" variant="outline" size="lg">
+            <ButtonLink href="/help" variant="outline" size="md" className="w-full sm:w-auto">
               How it works
             </ButtonLink>
-          </div>
+          </BtnRow>
         )}
       </Container>
     </section>

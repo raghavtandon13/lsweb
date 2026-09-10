@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/layout/page-hero";
+import { BtnRow } from "@/components/ui/btn-row";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 
@@ -6,12 +7,12 @@ export default function SmallTicketPage() {
   return (
     <>
       <PageHero
-        eyebrow="Tools"
+        eyebrow="Loans"
         title="Small ticket loans"
         body="Loans from about ₹8,000 to ₹50,000. Compare the total amount you repay, not only the monthly rate."
         actions
       />
-      <Container className="grid gap-10 py-16 lg:grid-cols-3">
+      <Container className="grid gap-8 py-10 lg:grid-cols-3 lg:py-12">
         {[
           {
             t: "What counts as small",
@@ -32,11 +33,15 @@ export default function SmallTicketPage() {
           </article>
         ))}
       </Container>
-      <Container className="flex flex-wrap gap-3 pb-20">
-        <ButtonLink href="/loans/payday">Payday loans</ButtonLink>
-        <ButtonLink href="/loans/short-term-personal" variant="outline">
-          Short term PL
-        </ButtonLink>
+      <Container className="pb-10">
+        <BtnRow>
+          <ButtonLink href="/loans/payday" className="w-full sm:w-auto">
+            Payday loans
+          </ButtonLink>
+          <ButtonLink href="/loans/short-term-personal" variant="outline" className="w-full sm:w-auto">
+            Short term PL
+          </ButtonLink>
+        </BtnRow>
       </Container>
     </>
   );

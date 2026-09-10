@@ -1,0 +1,50 @@
+{
+  "product": "LoanSparrow",
+  "version": "1.0",
+  "navOrder": ["Loans", "Credit", "Partner with us", "Help"],
+  "headerCtas": ["Check credit score (gold)", "Login", "Apply now"],
+  "routes": {
+    "marketing": [
+      "/",
+      "/loans/payday",
+      "/loans/short-term-personal",
+      "/loans/personal",
+      "/loans/gold",
+      "/loans/against-mutual-funds",
+      "/loans/against-fd",
+      "/loans/card-against-fd",
+      "/loans/unsecured-business",
+      "/loans/credit-card",
+      "/small-ticket-loans",
+      "/credit-score",
+      "/credit-report",
+      "/credit-health",
+      "/emi-calculator",
+      "/partner-with-us",
+      "/partners/register",
+      "/dsa/register"
+    ],
+    "help": ["/help", "/help/faqs", "/help/contact", "/help/about"],
+    "apply": [
+      "/apply",
+      "/apply/verify",
+      "/apply/details",
+      "/apply/consent",
+      "/apply/processing",
+      "/apply/offers",
+      "/apply/no-offer"
+    ],
+    "account": [
+      "/login",
+      "/dashboard",
+      "/dashboard/applications",
+      "/dashboard/applications/:id",
+      "/dashboard/offers",
+      "/dashboard/profile",
+      "/dashboard/support"
+    ],
+    "legal": ["/privacy-policy", "/terms", "/disclaimer", "/grievance-redressal"],
+    "system": ["404", "loan slug not found", "unauthenticated dashboard → /login"]
+  },
+  "rejectionRule": "No-offer is calm navy with a next step. Red is for form errors only."
+}

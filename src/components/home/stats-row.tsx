@@ -1,10 +1,10 @@
 import { IndianRupee, Layers, Smartphone, Timer } from "lucide-react";
 
 const stats = [
-  { value: "8", label: "Loan products", icon: Layers },
-  { value: "2 min", label: "To check eligibility", icon: Timer },
-  { value: "₹5K–₹50L", label: "Ticket range", icon: IndianRupee },
-  { value: "100%", label: "Digital journey", icon: Smartphone },
+  { value: "8", label: "Loan products", icon: Layers, tint: "bg-spark-gold/20 text-spark-gold" },
+  { value: "2 min", label: "To check eligibility", icon: Timer, tint: "bg-spark-mint/20 text-spark-mint" },
+  { value: "₹5K–₹50L", label: "Ticket range", icon: IndianRupee, tint: "bg-spark-sky/20 text-spark-sky" },
+  { value: "100%", label: "Digital journey", icon: Smartphone, tint: "bg-spark-coral/20 text-spark-coral" },
 ];
 
 export function StatsRow() {
@@ -16,8 +16,8 @@ export function StatsRow() {
             key={s.label}
             className={i < stats.length - 1 ? "flex items-center gap-4 border-b border-white/15 pb-8" : "flex items-center gap-4"}
           >
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10">
-              <s.icon className="h-5 w-5 text-white" />
+            <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${s.tint}`}>
+              <s.icon className="h-5 w-5" />
             </span>
             <div className="min-w-0">
               <p className="font-serif text-3xl leading-none text-white">{s.value}</p>

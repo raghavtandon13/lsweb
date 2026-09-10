@@ -42,4 +42,9 @@ export const productVisuals: Record<
       "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=900&q=70",
     hint: "Working capital",
   },
+  "credit-card": {
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=70",
+    hint: "Partner issuers",
+  },
 };

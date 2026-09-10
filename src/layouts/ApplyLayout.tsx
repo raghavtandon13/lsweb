@@ -14,15 +14,16 @@ const steps = [
 
 export default function ApplyLayout() {
   return (
-    <div className="relative flex min-h-full flex-col overflow-hidden bg-white">
+    <div className="relative flex min-h-full flex-col overflow-x-clip bg-white">
       <FinanceBackdrop />
       <header className="relative z-10 border-b border-line bg-white/90">
-        <div className="mx-auto flex h-16 max-w-[1760px] items-center justify-between px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto flex h-14 max-w-[1760px] items-center justify-between gap-2 px-3 sm:h-16 sm:px-6 lg:px-10">
           <Logo />
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <ThemeSwitcher />
-            <Link href="/" className="text-sm text-muted hover:text-navy">
-              Back to home
+            <Link href="/" className="text-xs text-muted hover:text-navy sm:text-sm">
+              <span className="sm:hidden">Home</span>
+              <span className="hidden sm:inline">Back to home</span>
             </Link>
           </div>
         </div>
@@ -35,7 +36,7 @@ export default function ApplyLayout() {
           ))}
         </div>
       </header>
-      <main className="relative z-10 mx-auto w-full max-w-xl flex-1 px-4 py-10 sm:px-6">
+      <main className="relative z-10 mx-auto w-full max-w-xl min-w-0 flex-1 px-3 py-6 sm:px-6 sm:py-10">
         <Outlet />
       </main>
     </div>

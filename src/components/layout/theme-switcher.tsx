@@ -71,7 +71,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
     <div ref={box} className={cn("relative", className)}>
       <button
         type="button"
-        className="grid h-9 w-9 place-items-center rounded-full border border-line bg-white shadow-sm"
+        className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white shadow-sm sm:h-11 sm:w-11"
         aria-label="Change site colour"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
@@ -82,7 +82,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
         </span>
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-[80] mt-2 w-[260px] rounded-2xl border border-line bg-white p-3 shadow-lift">
+        <div className="absolute right-0 top-full z-[80] mt-2 w-[min(260px,calc(100vw-1.5rem))] rounded-2xl border border-line bg-white p-3 shadow-lift max-sm:fixed max-sm:left-3 max-sm:right-3 max-sm:top-[3.6rem] max-sm:mt-0 max-sm:w-auto">
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">Presets</p>
           <div className="grid grid-cols-6 gap-1.5">
             {themes.map((t) => (

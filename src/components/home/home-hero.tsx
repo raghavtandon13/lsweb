@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, Landmark, Shield, Sparkles } from "lucide-react";
+import { BtnRow } from "@/components/ui/btn-row";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { FinanceScene } from "@/components/brand/finance-scene";
@@ -59,14 +60,14 @@ export function HomeHero() {
           <p className="mt-5 max-w-lg text-lg leading-8 text-muted">
             Compare offers from partner NBFCs. Apply when you are ready — eligibility starts in a short form, not on this page.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/apply" variant="gold" size="lg">
+          <BtnRow className="mt-8">
+            <ButtonLink href="/apply" variant="gold" size="lg" className="w-full sm:w-auto">
               Check eligibility <ArrowRight className="h-4 w-4" />
             </ButtonLink>
-            <ButtonLink href="#products" variant="outline" size="lg">
-              Explore products
+            <ButtonLink href="#loans" variant="outline" size="lg" className="w-full sm:w-auto">
+              Explore loans
             </ButtonLink>
-          </div>
+          </BtnRow>
           <div className="mt-8 flex flex-wrap gap-4">
             {chips.map((c) => (
               <span

@@ -10,7 +10,7 @@ export default function AboutPage() {
         title="LoanSparrow is a loan marketplace"
         body={`${site.legalName} helps you compare loan offers from partner banks and NBFCs. We are not the lender on this website.`}
       />
-      <Container className="grid gap-10 py-14 lg:grid-cols-12 lg:py-16">
+      <Container className="grid gap-10 py-10 lg:grid-cols-12 lg:py-12">
         <div className="prose-legal lg:col-span-7">
           <p>
             LoanSparrow lets you check eligibility for payday, personal, gold, FD, mutual fund and business loans in one

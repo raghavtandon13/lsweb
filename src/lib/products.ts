@@ -17,6 +17,7 @@ export type Product = {
   steps: { title: string; body: string }[];
   faqs: { q: string; a: string }[];
   caution: string;
+  kind?: "loan" | "card";
 };
 
 export const products: Product[] = [
@@ -422,8 +423,67 @@ export const products: Product[] = [
     caution:
       "Unsecured MSME credit is priced higher than a mortgage. Match tenor to the asset you are funding — do not fund a 7-year machine on a 12-month loan.",
   },
+  {
+    slug: "credit-card",
+    name: "Credit Card",
+    short: "Partner bank and NBFC cards. Compare limits and fees.",
+    eyebrow: "Cards",
+    headline: "Credit cards",
+    summary:
+      "Compare credit cards from partner banks and NBFCs. Check eligibility with mobile OTP — no branch visit to start.",
+    amountMin: 10_000,
+    amountMax: 10_00_000,
+    tenure: "Revolving",
+    rateFrom: "From 1.5% per month* on revolving dues",
+    disbursal: "Card issued after KYC",
+    highlights: [
+      "Limit based on income and bureau",
+      "Rewards, lounge or cashback on select cards",
+      "Digital application with partner issuers",
+      "Joining fee shown before you accept",
+    ],
+    suitedFor: [
+      "Salaried and self-employed with a clean bureau",
+      "Everyday spends you can repay in full",
+      "Thin files who may start with a secured / FD card",
+    ],
+    eligibility: [
+      "Indian resident, typically age 21–60",
+      "Valid PAN and mobile number",
+      "Income as per issuer policy",
+      "Bureau score as per partner cut-off",
+    ],
+    documents: [
+      "PAN and Aadhaar (OTP / VKYC as required)",
+      "Income proof or bank statement",
+      "Selfie / liveness check",
+    ],
+    steps: [
+      { title: "Name and mobile", body: "OTP to start. No card fee on this step." },
+      { title: "Basic profile", body: "Income, pincode and employment type." },
+      { title: "See card offers", body: "Limit, fee and rewards from partner issuers." },
+      { title: "KYC with the issuer", body: "You complete KYC on the bank or NBFC journey." },
+    ],
+    faqs: [
+      {
+        q: "Is this LoanSparrow’s own card?",
+        a: "No. Cards are issued by partner banks and NBFCs. You sign with the issuer. LoanSparrow only shows offers you may be eligible for.",
+      },
+      {
+        q: "Will this hit my credit score?",
+        a: "A hard bureau check happens only after you tick consent. Checking this page does not by itself create an enquiry.",
+      },
+    ],
+    caution:
+      "Revolving credit is expensive if you pay only the minimum. Prefer a card you can repay in full each month. Secured cards against FD are safer for thin files.",
+    kind: "card",
+  },
 ];
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
+}
+
+export function getLoans() {
+  return products.filter((p) => p.kind !== "card");
 }

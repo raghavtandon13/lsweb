@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { ButtonLink } from "@/components/ui/button-link";
+import { DashHead } from "@/components/dashboard/bits";
 
 export default function SupportPage() {
   const [sent, setSent] = useState(false);
@@ -14,30 +15,30 @@ export default function SupportPage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl">
-      <h1 className="font-serif text-4xl text-navy">Support</h1>
-      <p className="mt-2 text-sm text-muted">
-        Application questions land here. Complaints that need a statutory clock should go to Grievance Redressal.
-      </p>
+    <div className="max-w-xl">
+      <DashHead
+        title="Support"
+        body="Application questions land here. Statutory complaints go to Grievance Redressal."
+      />
       {sent ? (
-        <p className="card mt-8 p-6 font-serif text-2xl text-navy">
+        <p className="card mt-6 p-5 font-serif text-xl text-navy sm:p-6 sm:text-2xl">
           Ticket captured on this device. The support API will give you a number.
         </p>
       ) : (
-        <form onSubmit={onSubmit} className="card mt-8 space-y-5 p-6">
+        <form onSubmit={onSubmit} className="card mt-6 space-y-5 p-5 sm:p-6">
           <Field label="Application ID (optional)">
             <input className="input" name="applicationId" placeholder="SU-…" />
           </Field>
           <Field label="Message">
             <textarea className="input min-h-32" name="message" required />
           </Field>
-          <Button type="submit" size="lg">
+          <Button type="submit" size="lg" className="w-full">
             Send
           </Button>
         </form>
       )}
-      <ButtonLink href="/grievance-redressal" variant="ghost" className="mt-4">
-        Grievance redressal →
+      <ButtonLink href="/grievance-redressal" variant="outline" size="md" className="mt-4 w-full sm:w-auto">
+        Grievance redressal
       </ButtonLink>
     </div>
   );

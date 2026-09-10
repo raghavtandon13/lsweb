@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LoanSparrow — Design File v1.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0d3b3f;
+      --navy-soft: #0a3033;
+      --ink: #101618;
+      --muted: #2c3538;
+      --ivory: #f7f8f8;
+      --paper: #fff;
+      --line: #d9e0e0;
+      --danger: #c24141;
+      --gold: #e4b429;
+      --gold-d: #c48a10;
+      --mint: #1db8ae;
+      --sky: #3b9ad9;
+      --leaf: #2f9e6d;
+      --coral: #e07a5f;
+      --lilac: #7b6cf6;
+      --shadow: 0 22px 50px -24px rgba(14, 61, 64, 0.28);
+      --sans: Manrope, ui-sans-serif, system-ui, sans-serif;
+      --serif: Fraunces, Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: #1e1e1e;
+    }
+    aside {
+      background: #2c2c2c;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #111;
+    }
+    .brand {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .brand b { display: block; font-size: 13px; letter-spacing: .04em; }
+    .brand span { font-size: 11px; color: #9a9a9a; }
+    nav { padding: 10px 8px; overflow: auto; flex: 1; }
+    nav button {
+      display: block; width: 100%; text-align: left;
+      background: none; border: 0; color: #cfcfcf;
+      font: 600 12px/1.3 var(--sans); padding: 8px 10px; border-radius: 6px; cursor: pointer;
+    }
+    nav button:hover { background: #3a3a3a; color: #fff; }
+    nav button.on { background: #0d3b3f; color: #fff; }
+    .hint { padding: 12px 14px; font-size: 11px; color: #888; border-top: 1px solid #3a3a3a; line-height: 1.45; }
+    main { overflow: auto; background: #e5e5e5; }
+    .canvas { padding: 36px 40px 80px; min-width: 1100px; }
+    .page-title { font: 600 13px var(--sans); color: #555; margin: 0 0 22px; letter-spacing: .12em; text-transform: uppercase; }
+    .row { display: flex; flex-wrap: wrap; gap: 48px 40px; align-items: flex-start; }
+    .frame { display: flex; flex-direction: column; gap: 8px; }
+    .frame-name { font: 600 11px/1.2 var(--sans); color: #6a6a6a; }
+    .art {
+      background: var(--paper);
+      border-radius: 4px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      overflow: hidden;
+      position: relative;
+    }
+    .d { width: 1440px; transform: scale(.52); transform-origin: top left; height: 900px; }
+    .wrap-d { width: calc(1440px * .52); height: calc(900px * .52); }
+    .m { width: 390px; transform: scale(.72); transform-origin: top left; height: 844px; }
+    .wrap-m { width: calc(390px * .72); height: calc(844px * .72); }
+    .card-s { width: 420px; min-height: 320px; }
+    .note {
+      width: 200px; background: #fff4b0; padding: 12px 14px; font-size: 12px; line-height: 1.45;
+      box-shadow: 2px 3px 0 rgba(0,0,0,.08); transform: rotate(-1.2deg);
+    }
+    .note b { display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .swatch { width: 112px; }
+    .swatch i { display: block; height: 72px; border-radius: 10px 10px 0 0; }
+    .swatch p { margin: 0; padding: 8px; background: #fff; font-size: 11px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 10px 10px; }
+    .type-row { background: #fff; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; width: 520px; }
+    .hdr, .ftr { display: flex; align-items: center; justify-content: space-between; }
+    .hdr { height: 64px; padding: 0 28px; border-bottom: 1px solid var(--line); background: #fff; }
+    .logo { display: flex; align-items: center; gap: 8px; font-family: var(--serif); color: var(--navy); font-size: 18px; }
+    .mark { width: 32px; height: 32px; border-radius: 10px; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 11px; }
+    .nav { display: flex; gap: 22px; font-size: 14px; font-weight: 600; color: var(--navy); }
+    .btns { display: flex; gap: 8px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; font-weight: 700; font-size: 12px; padding: 8px 14px; text-decoration: none; border: 0; cursor: default; }
+    .btn-gold { background: var(--gold); color: #5c3d08; }
+    .btn-navy { background: var(--navy); color: #fff; }
+    .btn-out { background: #fff; color: var(--navy); border: 1px solid var(--line); }
+    .btn-ghost { background: transparent; color: var(--navy); }
+    .dot { width: 28px; height: 28px; border-radius: 999px; border: 1px solid var(--line); background: var(--navy); }
+    h1, h2, h3 { margin: 0; }
+    .serif { font-family: var(--serif); color: var(--navy); }
+    .cap { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-d); }
+    .muted { color: var(--muted); }
+    .pad { padding: 28px 40px; }
+    .hero-bg { background: linear-gradient(90deg, var(--ivory), #fff, #fff8e8); min-height: 220px; }
+    input, select, textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 500 14px var(--sans);
+    }
+    label.field { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 6px; }
+    .pill { display: inline-flex; border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 700; }
+    .err { color: var(--danger); font-size: 13px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+    .strip { height: 4px; background: linear-gradient(90deg, var(--gold), var(--mint), var(--navy)); }
+    .side { width: 240px; background: #fff; border-right: 1px solid var(--line); padding: 16px; }
+    .dash { display: grid; grid-template-columns: 240px 1fr; height: 100%; background: var(--ivory); }
+    .flow { display: flex; gap: 10px; align-items: center; font-size: 11px; font-weight: 700; color: #666; margin-bottom: 20px; }
+    .flow span { background: #fff; border: 1px solid var(--line); padding: 6px 10px; border-radius: 999px; }
+    .flow span.bad { background: #fff1ec; color: var(--coral); border-color: #f5c4b6; }
+    .flow i { color: #aaa; font-style: normal; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 10px 12px; background: var(--ivory); }
+    td { padding: 12px; border-top: 1px solid var(--line); }
+    .cover {
+      width: 1440px; height: 900px; background: var(--navy); color: #fff; padding: 80px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .cover h1 { font-family: var(--serif); font-size: 72px; font-weight: 500; }
+    .cover .gold { color: var(--gold); }
+    .spec { font-size: 13px; line-height: 1.7; color: #c9d4d4; max-width: 520px; }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="brand">
+      <b>LoanSparrow.fig</b>
+      <span>UI kit · v1.0 · Sep 2026</span>
+    </div>
+    <nav id="pages"></nav>
+    <div class="hint">Open this file in a browser. Import frames into Figma with html.to.design or copy artboards. Tokens live in tokens.json.</div>
+  </aside>
+  <main>
+    <div class="canvas" id="canvas"></div>
+  </main>
+  <script>
+    const pages = [
+      ["cover", "00 Cover"],
+      ["ia", "01 Sitemap & IA"],
+      ["foundations", "02 Foundations"],
+      ["components", "03 Components"],
+      ["marketing", "04 Marketing · Desktop"],
+      ["mobile", "05 Marketing · Mobile"],
+      ["apply", "06 Apply funnel"],
+      ["reject", "07 Outcomes & rejections"],
+      ["login", "08 Login"],
+      ["credit", "09 Credit"],
+      ["help", "10 Help hub"],
+      ["dash", "11 Dashboard"],
+      ["partner", "12 Partners"],
+      ["legal", "13 Legal & system"],
+    ];
+
+    const hdr = `
+      <div class="hdr">
+        <div class="logo"><span class="mark">LS</span> LoanSparrow</div>
+        <div class="nav"><span>Loans ▾</span><span>Credit ▾</span><span>Partner with us</span><span>Help</span></div>
+        <div class="btns">
+          <span class="dot"></span>
+          <span class="btn btn-gold">Check credit score</span>
+          <span class="btn btn-out">Login</span>
+          <span class="btn btn-navy">Apply now</span>
+        </div>
+      </div>`;
+
+    function frame(name, inner, kind) {
+      const cls = kind === "m" ? "m" : kind === "s" ? "" : "d";
+      const wrap = kind === "m" ? "wrap-m" : kind === "s" ? "" : "wrap-d";
+      const art = kind === "s" ? "art card-s" : `art ${cls}`;
+      return `<div class="frame"><div class="frame-name">${name}</div><div class="${wrap}"><div class="${art}">${inner}</div></div></div>`;
+    }
+
+    function note(t, b) {
+      return `<div class="note"><b>${t}</b>${b}</div>`;
+    }
+
+    const views = {
+      cover() {
+        return `
+          <p class="page-title">Cover</p>
+          <div class="row">
+            ${frame("Cover / 1440×900", `
+              <div class="cover">
+                <div>
+                  <div class="cap" style="color:var(--gold)">Marketplace · India</div>
+                  <h1 style="margin-top:18px">LoanSparrow<br><span class="gold">UI design file</span></h1>
+                  <p class="spec" style="margin-top:24px">Production-aligned artboards. Desktop 1440, mobile 390. 8px grid. Manrope + Fraunces. Navy #0D3B3F · Spark gold #E4B429.</p>
+                </div>
+                <div class="spec">v1.0 · 10 Sep 2026 · 40+ frames · apply 1–6 · no-offer · 404 · login OTP · dashboard empty/populated · help tabs · credit · partners · legal.</div>
+              </div>`)}
+            ${note("Handoff", "This file mirrors shipped UI. Do not invent a second visual language. Theme picker only shifts navy; gold coins stay #E4B429.")}
+          </div>`;
+      },
+
+      ia() {
+        const box = (t, items) => `
+          <div class="art" style="width:220px;padding:16px">
+            <div class="cap">${t}</div>
+            <ul style="margin:10px 0 0;padding:0;list-style:none;font-size:12px;line-height:1.7;color:var(--muted)">
+              ${items.map(i=>`<li>${i}</li>`).join("")}
+            </ul>
+          </div>`;
+        return `
+          <p class="page-title">Sitemap · information architecture</p>
+          <div class="row">
+            ${box("Marketing", ["Home /", "Loans /loans/:slug × 9", "Small ticket", "Credit score / report / health", "Credit cards", "EMI calculator", "Partner with us"])}
+            ${box("Help hub", ["How it works  /help", "FAQs  /help/faqs", "Contact  /help/contact", "About  /help/about", "Redirects from old URLs"])}
+            ${box("Apply funnel", ["1 Name + mobile", "2 OTP", "3 Details", "4 Consent", "5 Processing", "6 Offers  OR  No offer"])}
+            ${box("Account", ["Login mobile → OTP", "Dashboard home", "Applications + timeline", "Offers", "Profile", "Support"])}
+            ${box("Legal", ["Privacy", "Terms", "Disclaimer", "Grievance"])}
+            ${box("System", ["404 not on the map", "Loan slug not found", "Auth wall → /login", "Empty dashboard lists"])}
+            ${note("Nav order", "Loans → Credit → Partner with us → Help last. Header CTAs: Check credit score (gold) · Login · Apply now.")}
+          </div>
+          <div class="row" style="margin-top:36px">
+            <div class="art" style="padding:20px;width:720px">
+              <div class="cap">Happy path</div>
+              <p style="margin:12px 0 0;font-size:13px;line-height:1.8">Home → Quick apply → OTP → Details → Consent → Processing → Offers → Continue with lender → Dashboard timeline.</p>
+              <div class="cap" style="margin-top:18px">Rejection path</div>
+              <p style="margin:12px 0 0;font-size:13px;line-height:1.8">Processing → No offer → Gold / Card against FD / Credit health. Never a dead end. Never red.</p>
+            </div>
+          </div>`;
+      },
+
+      foundations() {
+        const colors = [
+          ["Navy", "#0D3B3F", "#0d3b3f"],
+          ["Ink", "#101618", "#101618"],
+          ["Ivory", "#F7F8F8", "#f7f8f8"],
+          ["Line", "#D9E0E0", "#d9e0e0"],
+          ["Spark gold", "#E4B429", "#e4b429"],
+          ["Mint", "#1DB8AE", "#1db8ae"],
+          ["Sky", "#3B9AD9", "#3b9ad9"],
+          ["Leaf", "#2F9E6D", "#2f9e6d"],
+          ["Coral", "#E07A5F", "#e07a5f"],
+          ["Danger", "#C24141", "#c24141"],
+        ];
+        return `
+          <p class="page-title">Foundations</p>
+          <div class="row">
+            ${colors.map(([n,h,c]) => `<div class="swatch"><i style="background:${c}"></i><p><b>${n}</b><br>${h}</p></div>`).join("")}
+          </div>
+          <div class="row" style="margin-top:40px">
+            <div class="type-row">
+              <div class="cap">Type</div>
+              <h1 class="serif" style="font-size:40px;margin-top:10px">Fraunces — headlines</h1>
+              <p style="font-size:28px;font-weight:600;margin:8px 0 0;color:var(--navy)">Manrope — UI & body</p>
+              <p class="muted" style="margin-top:10px">Body 16/1.55 · Caption 11px uppercase 0.16em · Buttons 12–15px semibold</p>
+            </div>
+            <div class="type-row">
+              <div class="cap">Grid & radius</div>
+              <p style="margin:10px 0 0">Base 8px. Frame padding 28–40. Cards 20px radius. Buttons 14px radius. Pills 999.</p>
+              <p class="muted" style="margin-top:8px">Desktop zoom 80% in production (html zoom). Design at 1440 logical.</p>
+            </div>
+            ${note("Colour rule", "Brand navy is the theme. Spark gold is decorative and stays gold even when the theme changes. Use gold only for highlight CTAs and coins.")}
+          </div>`;
+      },
+
+      components() {
+        return `
+          <p class="page-title">Components</p>
+          <div class="row">
+            <div class="art card-s" style="padding:24px">
+              <div class="cap">Buttons</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+                <span class="btn btn-gold">Check credit score</span>
+                <span class="btn btn-navy">Apply now</span>
+                <span class="btn btn-out">Login</span>
+                <span class="btn btn-ghost">Ghost</span>
+              </div>
+              <div class="cap" style="margin-top:22px">Status pills</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+                <span class="pill" style="background:#e8f8ef;color:var(--leaf)">Offers ready</span>
+                <span class="pill" style="background:#e7f4fc;color:var(--sky)">In review</span>
+                <span class="pill" style="background:#fff8e4;color:var(--gold-d)">Disbursed</span>
+                <span class="pill" style="background:#fff1ec;color:var(--coral)">No offer</span>
+                <span class="pill" style="background:var(--ivory);color:var(--muted)">Closed</span>
+              </div>
+              <div class="cap" style="margin-top:22px">Field</div>
+              <label class="field" style="margin-top:10px">Mobile</label>
+              <input value="9876543210" />
+              <p class="err" style="margin:6px 0 0">Enter a valid 10-digit Indian mobile.</p>
+            </div>
+            <div class="art card-s" style="padding:0;overflow:hidden">
+              <div class="strip"></div>
+              <div style="padding:20px">
+                <div class="cap">Offer card</div>
+                <p class="muted" style="margin:8px 0 0;font-size:13px">Aarohan Finance</p>
+                <h2 class="serif" style="font-size:22px;margin-top:4px">Short Term PL</h2>
+                <p style="margin:8px 0 0;font-weight:700;color:var(--gold)">₹80,000</p>
+                <p class="muted" style="font-size:13px;margin:4px 0 0">EMI ₹7,346 · 18.5% p.a.</p>
+                <span class="btn btn-navy" style="margin-top:16px;width:100%">Continue with lender</span>
+              </div>
+            </div>
+            ${note("States required", "Every form: default, focus, error, disabled. Every list: loading, populated, empty. Every CTA: rest, hover (-1px), disabled 50%.")}
+          </div>`;
+      },
+
+      marketing() {
+        return `
+          <p class="page-title">Marketing · Desktop</p>
+          <div class="row">
+            ${frame("Home / Hero", `
+              ${hdr}
+              <div class="hero-bg pad" style="display:grid;grid-template-columns:1.2fr .8fr;gap:40px;min-height:836px">
+                <div>
+                  <div class="cap">LoanSparrow</div>
+                  <h1 style="font-size:48px;font-weight:600;color:var(--navy);margin-top:12px;max-width:520px">Fast-track your <span style="color:var(--gold)">loan approvals ...</span></h1>
+                  <p class="muted" style="margin-top:16px;max-width:440px;font-size:18px">Personal, gold and business loans from partner NBFCs. Start with name and mobile — free to check.</p>
+                  <div style="display:flex;gap:10px;margin-top:22px">
+                    <span class="btn btn-navy" style="min-height:48px;padding:0 22px">View loans</span>
+                    <span class="btn btn-out" style="min-height:48px;padding:0 22px">How it works</span>
+                  </div>
+                </div>
+                <div class="card" style="padding:24px">
+                  <div class="cap">Get your loan offer</div>
+                  <h2 class="serif" style="font-size:28px;margin-top:8px">Start in 2 minutes</h2>
+                  <label class="field" style="margin-top:18px">Name</label>
+                  <input placeholder="Full name" />
+                  <label class="field" style="margin-top:12px">Mobile</label>
+                  <input placeholder="10-digit mobile" />
+                  <p style="font-size:12px;margin:12px 0">☑ Terms, Privacy, Disclaimer</p>
+                  <span class="btn btn-gold" style="width:100%;min-height:44px">Get OTP & continue</span>
+                </div>
+              </div>`)}
+            ${note("Home", "Gold highlight only on “loan approvals”. Quick apply is the conversion unit. No eligibility math on this page.")}
+          </div>
+          <div class="row" style="margin-top:48px">
+            ${frame("Loan product / Personal", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:160px">
+                <div class="cap">Planned expenses</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Personal loan</h1>
+                <p class="muted" style="margin-top:8px;max-width:560px">Compare offers from partner NBFCs. Amount, interest and fees before you continue.</p>
+                <div style="display:flex;gap:8px;margin-top:14px">
+                  <span class="btn btn-navy">Check eligibility</span>
+                  <span class="btn btn-out">How it works</span>
+                </div>
+              </div>
+              <div class="pad" style="display:grid;grid-template-columns:2fr 1fr;gap:24px;background:var(--ivory);min-height:620px">
+                <div>
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+                    ${[["Amount","₹50K – ₹25L","var(--gold)"],["Tenure","12–60 mo","var(--mint)"],["Pricing","From 10.99%","var(--sky)"],["Disbursal","2–5 days","var(--coral)"]].map(([k,v,c])=>`<div class="card" style="padding:12px;box-shadow:none"><div class="muted" style="font-size:11px">${k}</div><div class="serif" style="color:${c};margin-top:4px">${v}</div></div>`).join("")}
+                  </div>
+                  <h2 class="serif" style="font-size:22px;margin:22px 0 10px">Why this product</h2>
+                  <p class="muted" style="font-size:14px">No collateral. Named offers. Consent before bureau.</p>
+                </div>
+                <div class="card" style="padding:0;height:fit-content">
+                  <div class="strip"></div>
+                  <div style="padding:18px">
+                    <div class="cap">Personal Loan</div>
+                    <h2 class="serif" style="font-size:22px;margin-top:6px">Check eligibility</h2>
+                    <p class="muted" style="font-size:13px;margin-top:8px">Borrow only what EMIs fit your income.</p>
+                    <span class="btn btn-navy" style="width:100%;margin-top:14px">Check eligibility</span>
+                  </div>
+                </div>
+              </div>`)}
+          </div>`;
+      },
+
+      mobile() {
+        const mhdr = `<div class="hdr" style="height:56px;padding:0 12px"><div class="logo" style="font-size:16px"><span class="mark" style="width:28px;height:28px">LS</span> LoanSparrow</div><div class="btns"><span class="dot"></span><span class="btn btn-out" style="width:36px;height:36px;border-radius:999px;padding:0">≡</span></div></div>`;
+        return `
+          <p class="page-title">Marketing · Mobile 390</p>
+          <div class="row">
+            ${frame("Home · mobile", `
+              ${mhdr}
+              <div class="pad" style="padding:20px;background:linear-gradient(#fff8e8,#fff);min-height:788px">
+                <div class="cap">LoanSparrow</div>
+                <h1 style="font-size:28px;font-weight:600;color:var(--navy);margin-top:10px">Fast-track your <span style="color:var(--gold)">loan approvals ...</span></h1>
+                <span class="btn btn-navy" style="width:100%;margin-top:16px;min-height:44px">View loans</span>
+                <span class="btn btn-out" style="width:100%;margin-top:8px;min-height:44px">How it works</span>
+                <div class="card" style="margin-top:20px;padding:16px">
+                  <div class="cap">Get your loan offer</div>
+                  <h2 class="serif" style="font-size:22px;margin:8px 0 12px">Start in 2 minutes</h2>
+                  <input placeholder="Name" />
+                  <input placeholder="Mobile" style="margin-top:8px" />
+                  <span class="btn btn-gold" style="width:100%;margin-top:12px">Get OTP</span>
+                </div>
+              </div>`, "m")}
+            ${frame("Help tabs · mobile", `
+              ${mhdr}
+              <div class="hero-bg" style="padding:20px">
+                <div class="cap">Help</div>
+                <h1 class="serif" style="font-size:28px;margin-top:6px">FAQs</h1>
+              </div>
+              <div style="padding:16px;display:flex;flex-wrap:wrap;gap:8px">
+                <span class="btn btn-out">How it works</span>
+                <span class="btn btn-navy">FAQs</span>
+                <span class="btn btn-out">Contact us</span>
+                <span class="btn btn-out">About us</span>
+              </div>
+              <div style="padding:0 16px">
+                <div class="card" style="padding:14px;box-shadow:none">Is LoanSparrow a bank?</div>
+                <div class="card" style="padding:14px;box-shadow:none;margin-top:8px">Does checking eligibility affect CIBIL?</div>
+              </div>`, "m")}
+            ${note("Mobile header", "Hamburger only below xl. Credit score + Apply live in the sheet. Tabs are pills, never faint underlines.")}
+          </div>`;
+      },
+
+      apply() {
+        return `
+          <p class="page-title">Apply funnel</p>
+          <div class="flow"><span>1 Name</span><i>→</i><span>2 OTP</span><i>→</i><span>3 Details</span><i>→</i><span>4 Consent</span><i>→</i><span>5 Processing</span><i>→</i><span>6 Offers</span></div>
+          <div class="row">
+            ${frame("01 Name + mobile", `
+              <div style="background:#f4fbfa;min-height:900px;padding:40px;display:flex;justify-content:center">
+                <div class="card" style="width:440px;padding:28px;margin-top:40px">
+                  <div class="cap">Step 1</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Enter name and mobile</h1>
+                  <p class="muted" style="font-size:13px;margin-top:8px">OTP next. No credit check on this step.</p>
+                  <label class="field" style="margin-top:18px">Name</label>
+                  <input placeholder="Full name (as per PAN)" />
+                  <label class="field" style="margin-top:12px">Mobile</label>
+                  <input placeholder="10-digit mobile" />
+                  <p style="font-size:12px;margin:12px 0">☐ Accept Terms, Privacy, Disclaimer</p>
+                  <span class="btn btn-navy" style="width:100%;opacity:.45">Send OTP</span>
+                </div>
+              </div>`)}
+            ${frame("02 OTP", `
+              <div style="background:#f4fbfa;min-height:900px;padding:40px;display:flex;justify-content:center">
+                <div class="card" style="width:440px;padding:28px;margin-top:40px">
+                  <div class="cap">Step 2</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Enter OTP</h1>
+                  <p class="muted" style="font-size:13px;margin-top:8px">Sent to +91 98•••••210. Demo: any 6 digits.</p>
+                  <label class="field" style="margin-top:18px">OTP</label>
+                  <input value="482910" style="letter-spacing:.4em" />
+                  <span class="btn btn-gold" style="width:100%;margin-top:18px">Continue</span>
+                </div>
+              </div>`)}
+          </div>
+          <div class="row" style="margin-top:40px">
+            ${frame("03 Details", `
+              <div style="background:#f4fbfa;min-height:900px;padding:40px;display:flex;justify-content:center">
+                <div class="card" style="width:440px;padding:28px;margin-top:24px">
+                  <div class="cap">Step 3</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Your details</h1>
+                  <p class="muted" style="font-size:13px;margin-top:8px">PAN, pincode, income, work type and date of birth.</p>
+                  <label class="field" style="margin-top:16px">PAN</label>
+                  <input value="ABCDE1234F" style="text-transform:uppercase" />
+                  <label class="field" style="margin-top:10px">Pincode</label>
+                  <input value="400051" />
+                  <label class="field" style="margin-top:10px">Monthly income</label>
+                  <input value="45000" />
+                  <label class="field" style="margin-top:10px">Employment</label>
+                  <select><option>Salaried</option></select>
+                  <span class="btn btn-navy" style="width:100%;margin-top:16px">Continue</span>
+                </div>
+              </div>`)}
+            ${frame("04 Consent", `
+              <div style="background:#f4fbfa;min-height:900px;padding:40px;display:flex;justify-content:center">
+                <div class="card" style="width:440px;padding:28px;margin-top:24px">
+                  <div class="cap">Step 4</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Consent</h1>
+                  <div style="margin-top:16px;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--ivory);font-size:13px">☑ Credit bureau check</div>
+                  <div style="margin-top:8px;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--ivory);font-size:13px">☑ Share with partner lenders</div>
+                  <div style="margin-top:8px;border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--ivory);font-size:13px">☐ WhatsApp updates (optional)</div>
+                  <span class="btn btn-navy" style="width:100%;margin-top:18px">See offers</span>
+                </div>
+              </div>`)}
+            ${frame("05 Processing", `
+              <div style="background:#f4fbfa;min-height:900px;padding:40px;display:flex;justify-content:center">
+                <div class="card" style="width:440px;padding:28px;margin-top:80px;text-align:center">
+                  <div class="cap">Step 5</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Matching lenders</h1>
+                  <p class="muted" style="font-size:13px;margin-top:10px;line-height:1.6">We share your consented profile with partner NBFCs. This takes a few seconds.</p>
+                  <div style="margin:28px auto 0;width:56px;height:56px;border-radius:999px;border:4px solid var(--line);border-top-color:var(--gold)"></div>
+                  <p class="muted" style="font-size:12px;margin-top:16px">Do not close this tab.</p>
+                </div>
+              </div>`)}
+            ${frame("06 Offers", `
+              ${hdr}
+              <div class="pad" style="background:var(--ivory);min-height:836px">
+                <div class="cap">Eligible</div>
+                <h1 class="serif" style="font-size:28px;margin-top:6px">Your loan offers</h1>
+                <div class="card" style="margin-top:16px;padding:18px;max-width:560px">
+                  <div style="display:flex;justify-content:space-between"><div><p class="muted" style="font-size:13px;margin:0">Aarohan Finance</p><h2 class="serif" style="font-size:20px">Short Term PL</h2></div><span class="pill" style="background:#fff8e4;color:var(--gold-d)">Fit</span></div>
+                  <p style="margin:10px 0 0;font-weight:700;color:var(--gold)">₹80,000 · EMI ₹7,346</p>
+                  <span class="btn btn-navy" style="margin-top:14px">Continue with Aarohan Finance</span>
+                </div>
+              </div>`)}
+          </div>`;
+      },
+
+      reject() {
+        return `
+          <p class="page-title">Outcomes, rejections, errors</p>
+          <div class="flow"><span>Funnel</span><i>→</i><span class="bad">No offer</span><i>or</i><span>404</span><i>or</i><span>Validation</span></div>
+          <div class="row">
+            ${frame("No offer / rejection", `
+              <div style="background:#f4fbfa;min-height:900px;padding:48px;display:flex;justify-content:center">
+                <div class="card" style="width:480px;padding:32px;margin-top:40px">
+                  <div class="cap">Outcome</div>
+                  <h1 class="serif" style="font-size:30px;margin-top:8px">No offer available right now</h1>
+                  <p class="muted" style="font-size:14px;line-height:1.6;margin-top:12px">Partner lenders could not price this profile. This can be due to income, pincode or employment type.</p>
+                  <p class="muted" style="font-size:14px;line-height:1.6;margin-top:10px">Try gold, a card against FD, or improve credit health and apply later.</p>
+                  <span class="btn btn-navy" style="width:100%;margin-top:18px">See gold loans</span>
+                  <span class="btn btn-out" style="width:100%;margin-top:8px">Card against FD</span>
+                  <span class="btn btn-ghost" style="width:100%;margin-top:8px">Credit health guide</span>
+                </div>
+              </div>`)}
+            ${frame("404 Not on the map", `
+              <div style="min-height:900px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px">
+                <div class="logo"><span class="mark">LS</span> LoanSparrow</div>
+                <h1 class="serif" style="font-size:36px;margin-top:28px">This page is not on the map.</h1>
+                <p class="muted" style="max-width:360px;margin-top:10px">Check the menu, or start an eligibility check.</p>
+                <div style="display:flex;gap:8px;margin-top:20px">
+                  <span class="btn btn-navy">Home</span>
+                  <span class="btn btn-out">Check eligibility</span>
+                </div>
+                <p style="margin-top:16px;font-size:13px;color:var(--gold-d)">Contact</p>
+              </div>`)}
+          </div>
+          <div class="row" style="margin-top:40px">
+            <div class="art card-s" style="padding:24px">
+              <div class="cap">Form error</div>
+              <h2 class="serif" style="font-size:22px;margin-top:8px">OTP invalid</h2>
+              <label class="field" style="margin-top:14px">OTP</label>
+              <input value="12" style="border-color:var(--danger)" />
+              <p class="err" style="margin:8px 0 0">Enter 6-digit OTP.</p>
+            </div>
+            <div class="art card-s" style="padding:24px">
+              <div class="cap">Blocked CTA</div>
+              <h2 class="serif" style="font-size:22px;margin-top:8px">Terms not accepted</h2>
+              <p class="muted" style="font-size:13px;margin-top:8px">☐ Accept Terms, Privacy, Disclaimer</p>
+              <p class="err">Accept the Terms, Privacy Policy, and Disclaimer to send OTP.</p>
+              <span class="btn btn-navy" style="width:100%;margin-top:12px;opacity:.45">Send OTP</span>
+            </div>
+            <div class="art card-s" style="padding:24px">
+              <div class="cap">Auth wall</div>
+              <h2 class="serif" style="font-size:22px;margin-top:8px">Dashboard locked</h2>
+              <p class="muted" style="font-size:13px;margin-top:8px">Unauthenticated visits to /dashboard replace to /login. Never show empty chrome.</p>
+              <span class="btn btn-gold" style="width:100%;margin-top:16px">Login with OTP</span>
+            </div>
+            ${note("Rejection tone", "Never shame the user. Always give a next step: gold, FD card, credit health, or wait 30 days. Red is for form errors only — not for no-offer.")}
+          </div>`;
+      },
+
+      login() {
+        return `
+          <p class="page-title">Login · customer OTP</p>
+          <div class="row">
+            ${frame("Login / mobile", `
+              <div style="min-height:900px;display:flex;flex-direction:column;align-items:center;padding:48px 40px;background:#fff">
+                <div style="width:440px;display:flex;justify-content:space-between;align-items:center">
+                  <div class="logo"><span class="mark">LS</span> LoanSparrow</div>
+                  <span class="dot"></span>
+                </div>
+                <div class="card" style="width:440px;padding:28px;margin-top:40px">
+                  <div class="cap">Customer login</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Login with mobile OTP</h1>
+                  <p class="muted" style="font-size:13px;margin-top:8px">We send an OTP to your mobile. No password needed.</p>
+                  <label class="field" style="margin-top:18px">Mobile</label>
+                  <input placeholder="10-digit mobile" />
+                  <span class="btn btn-navy" style="width:100%;margin-top:16px">Send OTP</span>
+                  <p class="muted" style="font-size:12px;margin-top:14px;text-align:center">New here? Apply now</p>
+                </div>
+              </div>`)}
+            ${frame("Login / OTP", `
+              <div style="min-height:900px;display:flex;flex-direction:column;align-items:center;padding:48px 40px;background:#fff">
+                <div class="logo"><span class="mark">LS</span> LoanSparrow</div>
+                <div class="card" style="width:440px;padding:28px;margin-top:40px">
+                  <div class="cap">Customer login</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:8px">Enter OTP</h1>
+                  <p class="muted" style="font-size:13px;margin-top:8px">For this demo, any 6 digits work.</p>
+                  <label class="field" style="margin-top:18px">OTP</label>
+                  <input value="482910" style="letter-spacing:.4em" />
+                  <span class="btn btn-gold" style="width:100%;margin-top:16px">Verify & continue</span>
+                </div>
+              </div>`)}
+            <div class="art card-s" style="padding:24px">
+              <div class="cap">Error</div>
+              <h2 class="serif" style="font-size:22px;margin-top:8px">Invalid mobile</h2>
+              <label class="field" style="margin-top:14px">Mobile</label>
+              <input value="12" style="border-color:var(--danger)" />
+              <p class="err" style="margin:8px 0 0">Enter a valid mobile.</p>
+              <span class="btn btn-navy" style="width:100%;margin-top:14px">Send OTP</span>
+            </div>
+            ${note("Login vs apply", "Login is for returning customers. Apply is a separate funnel. Unauthenticated /dashboard always replaces to /login.")}
+          </div>`;
+      },
+
+      credit() {
+        return `
+          <p class="page-title">Credit</p>
+          <div class="row">
+            ${frame("Credit score check", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:140px">
+                <div class="cap">Credit</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Check your Financial Kundli</h1>
+              </div>
+              <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;background:var(--ivory);min-height:680px">
+                <div class="card" style="padding:24px;height:fit-content">
+                  <div class="cap">Free check</div>
+                  <h2 class="serif" style="font-size:26px;margin-top:8px">Check your credit score</h2>
+                  <label class="field" style="margin-top:16px">Mobile</label>
+                  <input placeholder="10-digit mobile" />
+                  <span class="btn btn-navy" style="width:100%;margin-top:16px">Check my credit score</span>
+                </div>
+                <div>
+                  <h2 class="serif" style="font-size:24px">What moves the number</h2>
+                  <p class="muted" style="margin-top:12px">Payment history · Utilisation · Age and mix · Enquiries</p>
+                </div>
+              </div>`)}
+            ${frame("Credit report", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:140px">
+                <div class="cap">Credit</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Credit report</h1>
+                <p class="muted" style="margin-top:8px">Accounts, payments and enquiries in one place.</p>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:680px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                ${[["Accounts","3 open"],["On-time","98%"],["Enquiries","2 / 90d"]].map(([k,v])=>`<div class="card" style="padding:16px"><div class="muted" style="font-size:12px">${k}</div><div class="serif" style="font-size:24px;margin-top:6px">${v}</div></div>`).join("")}
+              </div>`)}
+          </div>
+          <div class="row" style="margin-top:40px">
+            ${frame("Credit health", `
+              ${hdr}
+              <div class="hero-bg pad">
+                <div class="cap">Credit</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Credit health</h1>
+                <p class="muted" style="margin-top:8px">Pay on time. Keep utilisation under 30%. Mix accounts slowly.</p>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:640px">
+                <div class="card" style="padding:20px;max-width:520px">
+                  <h2 class="serif">Improve your file</h2>
+                  <p class="muted" style="font-size:14px;margin-top:8px">Then re-apply. No-offer is not a ban — wait and try gold or FD-backed products.</p>
+                  <span class="btn btn-navy" style="margin-top:16px">Check score</span>
+                </div>
+              </div>`)}
+            ${frame("Credit cards product", `
+              ${hdr}
+              <div class="hero-bg pad">
+                <div class="cap">Cards</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Credit cards</h1>
+                <p class="muted" style="margin-top:8px">Partner banks and NBFCs. Limit, fee and rewards before you accept.</p>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:640px">
+                <div class="card" style="padding:20px;max-width:360px">
+                  <div class="strip" style="margin:-20px -20px 16px"></div>
+                  <div class="cap">Credit Card</div>
+                  <h2 class="serif" style="margin-top:6px">Check eligibility</h2>
+                  <span class="btn btn-navy" style="width:100%;margin-top:14px">Check eligibility</span>
+                </div>
+              </div>`)}
+            ${frame("EMI calculator", `
+              ${hdr}
+              <div class="hero-bg pad">
+                <div class="cap">Credit</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">EMI calculator</h1>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:640px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                <div class="card" style="padding:20px">
+                  <label class="field">Amount</label>
+                  <input value="80000" />
+                  <label class="field" style="margin-top:10px">Rate % p.a.</label>
+                  <input value="18.5" />
+                  <label class="field" style="margin-top:10px">Tenure (months)</label>
+                  <input value="12" />
+                </div>
+                <div class="card" style="padding:20px">
+                  <div class="cap">Estimated EMI</div>
+                  <p class="serif" style="font-size:40px;color:var(--gold);margin-top:12px">₹7,346</p>
+                  <p class="muted" style="font-size:13px;margin-top:8px">Illustrative. Lender pricing may differ.</p>
+                </div>
+              </div>`)}
+          </div>`;
+      },
+
+      help() {
+        const tabs = (on) => `
+          <div style="display:flex;flex-wrap:wrap;gap:8px;padding:20px 40px 0">
+            ${["How it works","FAQs","Contact us","About us"].map((t)=>`<span class="btn ${t===on?"btn-navy":"btn-out"}">${t}</span>`).join("")}
+          </div>`;
+        return `
+          <p class="page-title">Help hub · one page, four tabs</p>
+          <div class="row">
+            ${frame("Help / How it works", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:130px">
+                <div class="cap">Help</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">How it works</h1>
+              </div>
+              ${tabs("How it works")}
+              <div class="pad" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+                ${["Name & mobile","OTP","Details","Consent","Offers"].map((t,i)=>`<div class="card" style="padding:14px;box-shadow:none"><div style="font-family:var(--serif);font-size:22px;color:var(--gold)">0${i+1}</div><div style="font-weight:700;margin-top:6px;font-size:13px">${t}</div></div>`).join("")}
+              </div>`)}
+            ${frame("Help / FAQs", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:130px">
+                <div class="cap">Help</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">FAQs</h1>
+              </div>
+              ${tabs("FAQs")}
+              <div class="pad">
+                ${["Is LoanSparrow a bank?","Does checking eligibility affect CIBIL?","Who disburses the loan?"].map(q=>`<div class="card" style="padding:14px 16px;box-shadow:none;margin-bottom:8px;font-weight:600">${q}</div>`).join("")}
+              </div>`)}
+            ${frame("Help / Contact", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:130px">
+                <div class="cap">Help</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Contact us</h1>
+              </div>
+              ${tabs("Contact us")}
+              <div class="pad" style="display:grid;grid-template-columns:1.2fr .8fr;gap:20px">
+                <div class="card" style="padding:20px">
+                  <input placeholder="Name" /><input placeholder="Email" style="margin-top:8px" />
+                  <span class="btn btn-navy" style="margin-top:12px">Send message</span>
+                </div>
+                <div class="card" style="padding:20px;box-shadow:none">
+                  <div class="cap">Reach</div>
+                  <p class="muted" style="font-size:13px;margin-top:10px">1800-120-7384<br>support@loansparrow.in</p>
+                </div>
+              </div>`)}
+            ${frame("Help / About", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:130px">
+                <div class="cap">Help</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">About us</h1>
+              </div>
+              ${tabs("About us")}
+              <div class="pad" style="max-width:720px">
+                <p class="muted" style="line-height:1.7">LoanSparrow is a digital loan marketplace. We match customers with partner NBFCs. We are not the lender.</p>
+              </div>`)}
+          </div>`;
+      },
+
+      dash() {
+        const side = `<div class="side">
+          <div class="logo" style="font-size:16px"><span class="mark" style="width:28px;height:28px">LS</span> LoanSparrow</div>
+          <p class="muted" style="font-size:12px;margin:16px 0 8px">Hi, Riya</p>
+          ${["Home","Applications","Offers","Profile","Support"].map((n,i)=>`<div style="padding:10px 12px;border-radius:12px;font-size:13px;font-weight:600;margin-bottom:4px;background:${i===0?"var(--navy)":"transparent"};color:${i===0?"#fff":"var(--navy)"}">${n}</div>`).join("")}
+          <p class="muted" style="font-size:12px;margin-top:24px">Log out</p>
+        </div>`;
+        return `
+          <p class="page-title">Dashboard</p>
+          <div class="row">
+            ${frame("Dashboard home", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px">
+                  <div class="cap">Hi, Riya</div>
+                  <h1 class="serif" style="font-size:28px;margin-top:4px">Dashboard</h1>
+                  <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:18px">
+                    <div class="card" style="padding:0">
+                      <div class="strip"></div>
+                      <div style="padding:16px">
+                        <div class="cap">Active application</div>
+                        <h2 class="serif" style="margin-top:6px">Short Term Personal Loan</h2>
+                        <span class="pill" style="background:#e8f8ef;color:var(--leaf);margin-top:8px">Offers ready</span>
+                        <span class="btn btn-navy" style="margin-top:12px">View timeline</span>
+                      </div>
+                    </div>
+                    <div style="background:var(--navy);color:#fff;border-radius:20px;padding:16px">
+                      <div style="color:var(--gold);font-size:11px;letter-spacing:.14em">CREDIT SNAPSHOT</div>
+                      <div style="font-family:var(--serif);font-size:48px;color:var(--gold);margin-top:8px">746</div>
+                      <div style="opacity:.75;font-size:13px">Good · 2 Sep 2026</div>
+                    </div>
+                  </div>
+                </div>
+              </div>`)}
+            ${frame("Applications list", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px">
+                  <h1 class="serif" style="font-size:28px">My applications</h1>
+                  <table style="margin-top:16px;background:#fff;border-radius:16px;overflow:hidden">
+                    <tr><th>ID</th><th>Product</th><th>Amount</th><th>Status</th></tr>
+                    <tr><td>SU-240918-1842</td><td>Short Term PL</td><td>₹80,000</td><td><span class="pill" style="background:#e8f8ef;color:var(--leaf)">Offers ready</span></td></tr>
+                    <tr><td>SU-240812-0911</td><td>Gold Loan</td><td>₹1,20,000</td><td><span class="pill" style="background:#fff8e4;color:var(--gold-d)">Disbursed</span></td></tr>
+                  </table>
+                </div>
+              </div>`)}
+          </div>
+          <div class="row" style="margin-top:40px">
+            ${frame("Timeline", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px;max-width:640px">
+                  <p style="font-size:13px;font-weight:700;color:var(--gold)">← All applications</p>
+                  <h1 class="serif" style="font-size:26px;margin-top:8px">Short Term Personal Loan</h1>
+                  <span class="pill" style="background:#e8f8ef;color:var(--leaf);margin-top:8px">Offers ready</span>
+                  <ol style="margin:24px 0 0;padding:0;list-style:none">
+                    ${[["OTP verified","done"],["Profile submitted","done"],["Consent given","done"],["Offers ready","current"],["Disbursal","upcoming"]].map(([t,s])=>`<li style="display:flex;gap:12px;padding-bottom:16px"><span style="width:10px;height:10px;border-radius:999px;margin-top:6px;background:${s==="done"?"var(--leaf)":s==="current"?"var(--gold)":"var(--line)"}"></span><div><b>${t}</b></div></li>`).join("")}
+                  </ol>
+                </div>
+              </div>`)}
+            ${frame("Empty applications", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px">
+                  <h1 class="serif" style="font-size:28px">My applications</h1>
+                  <p class="muted" style="margin-top:8px">No files yet for this mobile.</p>
+                  <span class="btn btn-navy" style="margin-top:16px">Apply now</span>
+                </div>
+              </div>`)}
+            ${frame("Support", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px;max-width:560px">
+                  <h1 class="serif" style="font-size:28px">Support</h1>
+                  <p class="muted" style="margin-top:8px">Tickets stay on this application. Escalation via grievance if needed.</p>
+                  <div class="card" style="padding:16px;margin-top:16px">
+                    <input placeholder="Subject" />
+                    <textarea style="margin-top:8px;min-height:80px" placeholder="What happened?"></textarea>
+                    <span class="btn btn-navy" style="margin-top:12px">Send</span>
+                  </div>
+                </div>
+              </div>`)}
+          </div>
+          <div class="row" style="margin-top:40px">
+            ${frame("Offers", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px">
+                  <h1 class="serif" style="font-size:28px">Your offers</h1>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+                    <div class="card" style="padding:16px">
+                      <p class="muted" style="font-size:12px;margin:0">Aarohan Finance</p>
+                      <h2 class="serif" style="font-size:20px">₹80,000</h2>
+                      <p class="muted" style="font-size:13px">EMI ₹7,346 · 12 mo</p>
+                      <span class="btn btn-navy" style="margin-top:10px">Continue with lender</span>
+                    </div>
+                    <div class="card" style="padding:16px">
+                      <p class="muted" style="font-size:12px;margin:0">Nivaan Capital</p>
+                      <h2 class="serif" style="font-size:20px">₹65,000</h2>
+                      <p class="muted" style="font-size:13px">EMI ₹6,210 · 12 mo</p>
+                      <span class="btn btn-out" style="margin-top:10px">Continue with lender</span>
+                    </div>
+                  </div>
+                </div>
+              </div>`)}
+            ${frame("Profile", `
+              <div class="dash">
+                ${side}
+                <div style="padding:28px;max-width:480px">
+                  <h1 class="serif" style="font-size:28px">Profile</h1>
+                  <label class="field" style="margin-top:16px">Name</label>
+                  <input value="Riya Sharma" />
+                  <label class="field" style="margin-top:10px">Mobile</label>
+                  <input value="9876543210" disabled />
+                  <label class="field" style="margin-top:10px">PAN</label>
+                  <input value="ABCDE1234F" />
+                  <span class="btn btn-navy" style="margin-top:16px">Save</span>
+                </div>
+              </div>`)}
+          </div>`;
+      },
+
+      partner() {
+        return `
+          <p class="page-title">Partners</p>
+          <div class="row">
+            ${frame("Partner with us", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:130px">
+                <div class="cap">Partners</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Partner with us</h1>
+                <p class="muted" style="margin-top:8px">Lending partners and DSAs join here. Customer login stays separate.</p>
+              </div>
+              <div class="pad" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--ivory);min-height:650px">
+                <div class="card" style="padding:0">
+                  <div class="strip"></div>
+                  <div style="padding:20px">
+                    <h2 class="serif">NBFC / Corporate</h2>
+                    <p class="muted" style="font-size:13px;margin-top:8px">Banks and NBFCs who want to offer loans through LoanSparrow.</p>
+                    <span class="btn btn-navy" style="margin-top:16px">Register as partner</span>
+                  </div>
+                </div>
+                <div class="card" style="padding:0">
+                  <div class="strip"></div>
+                  <div style="padding:20px">
+                    <h2 class="serif">DSA / agent</h2>
+                    <p class="muted" style="font-size:13px;margin-top:8px">Agents who source applications. Approval after compliance.</p>
+                    <span class="btn btn-navy" style="margin-top:16px">Register as DSA</span>
+                  </div>
+                </div>
+              </div>`)}
+            ${frame("NBFC register", `
+              ${hdr}
+              <div class="hero-bg pad">
+                <div class="cap">Partners</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Register as partner</h1>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:640px">
+                <div class="card" style="padding:24px;max-width:480px">
+                  <label class="field">Company name</label>
+                  <input />
+                  <label class="field" style="margin-top:10px">Work email</label>
+                  <input />
+                  <label class="field" style="margin-top:10px">RBI / NBFC licence</label>
+                  <input />
+                  <span class="btn btn-navy" style="width:100%;margin-top:16px">Submit for review</span>
+                </div>
+              </div>`)}
+            ${frame("DSA register", `
+              ${hdr}
+              <div class="hero-bg pad">
+                <div class="cap">Partners</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">DSA registration</h1>
+              </div>
+              <div class="pad" style="background:var(--ivory);min-height:640px">
+                <div class="card" style="padding:24px;max-width:480px">
+                  <label class="field">Full name</label>
+                  <input />
+                  <label class="field" style="margin-top:10px">Mobile</label>
+                  <input />
+                  <label class="field" style="margin-top:10px">City</label>
+                  <input />
+                  <span class="btn btn-navy" style="width:100%;margin-top:16px">Submit for review</span>
+                </div>
+              </div>`)}
+          </div>`;
+      },
+
+      legal() {
+        return `
+          <p class="page-title">Legal & system</p>
+          <div class="row">
+            ${frame("Legal document", `
+              ${hdr}
+              <div class="hero-bg pad" style="min-height:120px">
+                <div class="cap">Legal</div>
+                <h1 class="serif" style="font-size:32px;margin-top:6px">Privacy Policy</h1>
+                <p class="muted" style="margin-top:8px">Last updated 10 Sep 2026.</p>
+              </div>
+              <div class="pad" style="max-width:720px;margin:0 auto">
+                <p class="muted" style="line-height:1.7">LoanSparrow is a marketplace. We process data with consent. Bureau pulls happen only after the customer ticks the bureau box.</p>
+              </div>`)}
+            ${frame("Loan not found", `
+              ${hdr}
+              <div class="pad" style="min-height:836px;display:flex;align-items:center;justify-content:center">
+                <div style="text-align:center;max-width:420px">
+                  <h1 class="serif" style="font-size:32px">This loan is not listed.</h1>
+                  <p class="muted" style="margin-top:10px">Check Loans in the menu, or start with a product we do offer.</p>
+                  <span class="btn btn-navy" style="margin-top:18px">View loans</span>
+                </div>
+              </div>`)}
+            ${note("Legal pages", "Same compact hero as Help. No Apply CTA on legal. Footer disclaimer always visible: we are not the lender.")}
+            ${note("System", "sessionStorage apply · localStorage auth · theme hex · 80% desktop zoom · reduced-motion kills flight/coins.")}
+          </div>`;
+      },
+    };
+
+    const navEl = document.getElementById("pages");
+    const canvas = document.getElementById("canvas");
+    pages.forEach(([id, label], i) => {
+      const b = document.createElement("button");
+      b.textContent = label;
+      b.onclick = () => show(id);
+      if (i === 0) b.classList.add("on");
+      navEl.appendChild(b);
+    });
+    function show(id) {
+      [...navEl.children].forEach((b, i) => b.classList.toggle("on", pages[i][0] === id));
+      canvas.innerHTML = views[id]();
+      canvas.parentElement.scrollTop = 0;
+    }
+    show("cover");
+  </script>
+</body>
+</html>

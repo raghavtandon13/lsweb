@@ -76,18 +76,18 @@ export function EmiWidget({ compact = false }: { compact?: boolean }) {
           />
         </label>
       </div>
-      <div className="mt-8 grid grid-cols-3 gap-3 rounded-2xl bg-ivory p-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-ink">EMI</p>
-          <p className="mt-1 font-serif text-2xl text-navy sm:text-3xl">{inr(Math.round(emi))}</p>
+      <div className="mt-6 grid grid-cols-3 gap-2 rounded-2xl bg-ivory p-3 sm:mt-8 sm:gap-3 sm:p-4">
+        <div className="min-w-0">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink sm:text-sm">EMI</p>
+          <p className="mt-1 break-words font-serif text-base text-navy sm:text-2xl lg:text-3xl">{inr(Math.round(emi))}</p>
         </div>
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-ink">Interest</p>
-          <p className="mt-1 font-serif text-2xl text-navy sm:text-3xl">{inr(Math.round(interest))}</p>
+        <div className="min-w-0">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink sm:text-sm">Interest</p>
+          <p className="mt-1 break-words font-serif text-base text-navy sm:text-2xl lg:text-3xl">{inr(Math.round(interest))}</p>
         </div>
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-ink">Total</p>
-          <p className="mt-1 font-serif text-2xl text-navy sm:text-3xl">{inr(Math.round(total))}</p>
+        <div className="min-w-0">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-ink sm:text-sm">Total</p>
+          <p className="mt-1 break-words font-serif text-base text-navy sm:text-2xl lg:text-3xl">{inr(Math.round(total))}</p>
         </div>
       </div>
       <p className="mt-3 text-[15px] text-ink">

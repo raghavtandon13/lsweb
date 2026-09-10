@@ -66,7 +66,7 @@ export default function DetailsPage() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="card p-7 sm:p-8">
+    <form onSubmit={onSubmit} className="card p-5 sm:p-8">
       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Step 3</p>
       <h1 className="mt-2 font-serif text-3xl text-navy">Your details</h1>
       <p className="mt-2 text-sm text-muted">PAN, pincode, income, work type and date of birth.</p>

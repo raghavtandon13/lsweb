@@ -47,62 +47,58 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex h-[76px] max-w-[1760px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="mx-auto flex h-14 max-w-[1760px] items-center justify-between gap-2 px-3 sm:h-16 sm:px-6 lg:h-[76px] lg:px-8 xl:px-10">
         <Logo />
 
-        <nav className="hidden items-center gap-7 lg:flex">
-          <DesktopFlyout label="Products">
+        <nav className="hidden items-center gap-5 xl:flex xl:gap-7">
+          <DesktopFlyout label="Loans">
             <div className="grid grid-cols-2 gap-1">
-              {nav.products.map((p) => (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  className="rounded-xl px-3 py-2.5 hover:bg-ivory"
-                >
+              {nav.loans.map((p) => (
+                <Link key={p.href} href={p.href} className="rounded-xl px-3 py-2.5 hover:bg-ivory">
                   <span className="block text-base font-medium text-navy">{p.label}</span>
-                  <span className="text-sm text-ink">{p.hint}</span>
+                  {p.hint && <span className="text-sm text-ink">{p.hint}</span>}
                 </Link>
               ))}
             </div>
           </DesktopFlyout>
-          <DesktopFlyout label="Tools">
+          <DesktopFlyout label="Credit">
             <div className="grid gap-1">
-              {nav.tools.map((t) => (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  className="rounded-xl px-3 py-2.5 text-base font-medium text-navy hover:bg-ivory"
-                >
-                  {t.label}
+              {nav.credit.map((t) => (
+                <Link key={t.href} href={t.href} className="rounded-xl px-3 py-2.5 hover:bg-ivory">
+                  <span className="block text-base font-medium text-navy">{t.label}</span>
+                  {t.hint && <span className="text-sm text-ink">{t.hint}</span>}
                 </Link>
               ))}
             </div>
           </DesktopFlyout>
-          <Link href="/how-it-works" className="text-base font-medium text-navy hover:text-gold-deep">
-            How it works
-          </Link>
           <Link href="/partner-with-us" className="text-base font-medium text-navy hover:text-gold-deep">
             Partner with us
           </Link>
+          <Link href="/help" className="text-base font-medium text-navy hover:text-gold-deep">
+            Help
+          </Link>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <ThemeSwitcher />
-          <ButtonLink href="/credit-score" variant="soft" size="sm" className="sm:hidden">
-            Credit score
-          </ButtonLink>
-          <ButtonLink href="/credit-score" variant="soft" size="sm" className="hidden sm:inline-flex">
-            Check credit score
-          </ButtonLink>
-          <ButtonLink href="/login" variant="outline" size="sm" className="hidden sm:inline-flex">
-            Login
-          </ButtonLink>
-          <ButtonLink href="/apply" variant="gold" size="sm" className="hidden sm:inline-flex">
-            Check eligibility
-          </ButtonLink>
+          <div className="hidden items-center gap-2 xl:flex">
+            <ButtonLink
+              href="/credit-score"
+              size="sm"
+              className="bg-spark-gold text-[#5c3d08] shadow-sm hover:bg-[#c48a10] hover:text-white"
+            >
+              Check credit score
+            </ButtonLink>
+            <ButtonLink href="/login" variant="outline" size="sm">
+              Login
+            </ButtonLink>
+            <ButtonLink href="/apply" variant="gold" size="sm">
+              Apply now
+            </ButtonLink>
+          </div>
           <button
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white sm:h-11 sm:w-11 xl:hidden"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >

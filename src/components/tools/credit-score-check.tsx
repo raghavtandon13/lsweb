@@ -31,9 +31,9 @@ export function CreditScoreCheck() {
 
   if (checked) {
     return (
-      <div className="card p-8">
+      <div className="card p-5 sm:p-8">
         <p className="text-[11px] uppercase tracking-wider text-muted">Your score</p>
-        <p className="mt-2 font-serif text-7xl text-navy">746</p>
+        <p className="mt-2 font-serif text-5xl text-navy sm:text-7xl">746</p>
         <p className="mt-2 text-sm text-sage">Good · illustrated demo</p>
         <div className="mt-8 h-2 overflow-hidden rounded-full bg-ivory">
           <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-gold to-sage" />
@@ -41,7 +41,7 @@ export function CreditScoreCheck() {
         <p className="mt-6 text-sm leading-7 text-muted">
           Sample score for this mobile. Live bureau score will replace this once the credit API is connected.
         </p>
-        <Button type="button" variant="outline" className="mt-6" onClick={() => setChecked(false)}>
+        <Button type="button" variant="outline" className="mt-6 w-full sm:w-auto" onClick={() => setChecked(false)}>
           Check another number
         </Button>
       </div>
@@ -49,7 +49,7 @@ export function CreditScoreCheck() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="card p-8">
+    <form onSubmit={onSubmit} className="card p-5 sm:p-8">
       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-deep">Free check</p>
       <h2 className="mt-2 font-serif text-3xl text-navy">Check your credit score</h2>
       <p className="mt-2 text-sm leading-6 text-muted">

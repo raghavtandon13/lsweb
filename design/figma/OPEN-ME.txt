@@ -1,0 +1,59 @@
+LoanSparrow — Figma source (v1.0)
+=================================
+
+Folder: design/figma/
+
+  OPEN-ME.txt                 this file
+  LoanSparrow.figma.html      interactive artboard file (open this)
+  tokens.json                 colours, type, grid, radius
+  sitemap.json                every route + rejection rule
+
+How to open
+-----------
+1. Double-click LoanSparrow.figma.html
+   or drag it into Chrome / Edge.
+
+2. Left list works like Figma pages:
+   00 Cover
+   01 Sitemap & IA
+   02 Foundations
+   03 Components
+   04 Marketing · Desktop
+   05 Marketing · Mobile
+   06 Apply funnel          (name → OTP → details → consent → processing → offers)
+   07 Outcomes & rejections (no-offer, 404, OTP error, terms blocked, auth wall)
+   08 Login                 (mobile, OTP, invalid mobile)
+   09 Credit                (score, report, health, cards, EMI)
+   10 Help hub              (how it works, FAQs, contact, about — pill tabs)
+   11 Dashboard             (home, list, timeline, empty, offers, profile, support)
+   12 Partners              (hub, NBFC register, DSA register)
+   13 Legal & system        (privacy, loan not found)
+
+Import into Figma
+-----------------
+A native .fig file only exists on Figma Cloud. This HTML is the
+handoff. In Figma:
+
+  • Plugin html.to.design — import LoanSparrow.figma.html
+  • or duplicate a 1440 / 390 grid and paste frames
+
+Tokens
+------
+  Navy          #0D3B3F     theme colour
+  Spark gold    #E4B429     stays gold even if theme changes
+  Type          Manrope + Fraunces
+  Grid          8px
+  Desktop       1440
+  Mobile        390
+
+Designer rules in this file
+---------------------------
+  Nav: Loans → Credit → Partner with us → Help last
+  Header CTAs: Check credit score (gold) · Login · Apply now
+  No-offer is calm navy, never red. Always a next step
+    (gold loan, card against FD, credit health).
+  Red is for form errors only.
+  Empty lists get an Apply now CTA.
+  Unauthenticated dashboard never shows empty chrome — it goes to login.
+  Help tabs are visible pills, not faint underlines.
+  We are not the lender — footer disclaimer stays on legal pages.

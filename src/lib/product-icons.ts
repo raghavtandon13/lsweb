@@ -19,4 +19,5 @@ export const productIcons: Record<string, LucideIcon> = {
   "against-fd": Landmark,
   "card-against-fd": CreditCard,
   "unsecured-business": Briefcase,
+  "credit-card": CreditCard,
 };

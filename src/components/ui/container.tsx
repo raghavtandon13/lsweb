@@ -8,7 +8,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1760px] px-4 sm:px-6 lg:px-8 xl:px-10", className)}>
+    <div className={cn("mx-auto w-full max-w-[1760px] px-3 sm:px-6 lg:px-8 xl:px-10", className)}>
       {children}
     </div>
   );
@@ -32,9 +32,9 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="font-serif text-4xl leading-tight text-navy sm:text-5xl">{title}</h2>
+      <h2 className="font-serif text-3xl leading-tight text-navy sm:text-4xl lg:text-5xl">{title}</h2>
       {body && (
-        <p className={cn("mt-4 text-lg leading-8 text-ink", align === "center" ? "mx-auto max-w-2xl" : "max-w-2xl")}>
+        <p className={cn("mt-3 text-base leading-7 text-ink sm:mt-4 sm:text-lg sm:leading-8", align === "center" ? "mx-auto max-w-2xl" : "max-w-2xl")}>
           {body}
         </p>
       )}

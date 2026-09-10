@@ -1,13 +1,10 @@
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 import SiteLayout from "@/layouts/SiteLayout";
 import ApplyLayout from "@/layouts/ApplyLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import HomePage from "@/app/(site)/page";
-import HowItWorksPage from "@/app/(site)/how-it-works/page";
-import AboutPage from "@/app/(site)/about/page";
-import FaqsPage from "@/app/(site)/faqs/page";
-import ContactPage from "@/app/(site)/contact/page";
+import HelpPage from "@/app/(site)/help/page";
 import PrivacyPage from "@/app/(site)/privacy-policy/page";
 import TermsPage from "@/app/(site)/terms/page";
 import DisclaimerPage from "@/app/(site)/disclaimer/page";
@@ -56,10 +53,12 @@ export default function App() {
       <Routes>
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/how-it-works" element={<HowItWorksPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/faqs" element={<FaqsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/help/:tab" element={<HelpPage />} />
+        <Route path="/how-it-works" element={<Navigate to="/help" replace />} />
+        <Route path="/faqs" element={<Navigate to="/help/faqs" replace />} />
+        <Route path="/contact" element={<Navigate to="/help/contact" replace />} />
+        <Route path="/about" element={<Navigate to="/help/about" replace />} />
         <Route path="/privacy-policy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/disclaimer" element={<DisclaimerPage />} />

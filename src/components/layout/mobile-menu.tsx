@@ -10,15 +10,15 @@ import { ButtonLink } from "@/components/ui/button-link";
 type MenuItem = { href: string; label: string; hint?: string };
 
 const sections: { id: string; label: string; items: MenuItem[] }[] = [
-  { id: "products", label: "Products", items: nav.products.map((p) => ({ href: p.href, label: p.label, hint: p.hint })) },
-  { id: "tools", label: "Tools", items: nav.tools.map((t) => ({ href: t.href, label: t.label })) },
-  { id: "company", label: "Company", items: nav.company.map((t) => ({ href: t.href, label: t.label })) },
+  { id: "loans", label: "Loans", items: nav.loans.map((p) => ({ href: p.href, label: p.label, hint: p.hint })) },
+  { id: "credit", label: "Credit", items: nav.credit.map((t) => ({ href: t.href, label: t.label, hint: t.hint })) },
+  { id: "help", label: "Help", items: nav.help.map((t) => ({ href: t.href, label: t.label })) },
   { id: "partners", label: "Partners", items: nav.partners.map((t) => ({ href: t.href, label: t.label })) },
   { id: "legal", label: "Legal", items: nav.legal.map((t) => ({ href: t.href, label: t.label })) },
 ];
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [expanded, setExpanded] = useState<string | null>("products");
+  const [expanded, setExpanded] = useState<string | null>("loans");
 
   useEffect(() => {
     if (!open) return;
@@ -32,7 +32,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    <div className="fixed inset-0 z-50 xl:hidden">
       <button
         type="button"
         aria-label="Close menu"
@@ -92,16 +92,24 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
         </nav>
 
         <div className="space-y-2 border-t border-line p-5">
-          <ButtonLink href="/credit-score" variant="soft" size="lg" className="w-full" onClick={onClose}>
+          <ButtonLink
+            href="/credit-score"
+            size="lg"
+            className="w-full bg-spark-gold text-[#5c3d08] hover:bg-[#c48a10] hover:text-white"
+            onClick={onClose}
+          >
             Check credit score
           </ButtonLink>
           <ButtonLink href="/apply" variant="gold" size="lg" className="w-full" onClick={onClose}>
-            Check eligibility
+            Apply now
           </ButtonLink>
-          <ButtonLink href="/login" variant="outline" size="lg" className="w-full">
+          <ButtonLink href="/login" variant="outline" size="lg" className="w-full" onClick={onClose}>
             Customer login
           </ButtonLink>
-          <ButtonLink href="/partner-with-us" variant="soft" size="lg" className="w-full">
+          <ButtonLink href="/help/contact" variant="navy" size="lg" className="w-full" onClick={onClose}>
+            Contact us
+          </ButtonLink>
+          <ButtonLink href="/partner-with-us" variant="soft" size="lg" className="w-full" onClick={onClose}>
             Partner with us
           </ButtonLink>
         </div>
