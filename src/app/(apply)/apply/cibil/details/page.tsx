@@ -132,6 +132,24 @@ export default function CibilDetailsPage() {
         </ul>
       </div>
 
+      {(report.issues ?? []).length > 0 && (
+        <div className="space-y-3">
+          <h2 className="font-serif text-xl text-navy">Issues on this file</h2>
+          {(report.issues ?? []).map((issue) => (
+            <article key={issue.title} className="card p-4">
+              <p className="font-semibold text-navy">{issue.title}</p>
+              <p className="mt-1 text-sm leading-6 text-muted">{issue.why}</p>
+            </article>
+          ))}
+          <Link
+            href="/apply/addons/report"
+            className="flex min-h-11 items-center justify-center rounded-2xl border border-line bg-white text-sm font-semibold text-navy"
+          >
+            Full credit report · ₹99
+          </Link>
+        </div>
+      )}
+
       <Link
         href="/apply/cibil#lenders"
         className="flex min-h-12 w-full items-center justify-center rounded-2xl bg-navy px-5 text-[15px] font-semibold text-white"

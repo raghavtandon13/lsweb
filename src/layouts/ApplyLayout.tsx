@@ -16,7 +16,14 @@ const steps = [
 ];
 
 function stepIndex(path: string) {
-  if (path.startsWith("/apply/cibil") || path.startsWith("/apply/offers") || path.startsWith("/apply/no-offer")) return 4;
+  if (
+    path.startsWith("/apply/cibil") ||
+    path.startsWith("/apply/offers") ||
+    path.startsWith("/apply/no-offer") ||
+    path.startsWith("/apply/addons") ||
+    path.startsWith("/apply/demo")
+  )
+    return 4;
   if (path.startsWith("/apply/processing")) return 4;
   const i = steps.findIndex((s) => s.href === path);
   return i < 0 ? 0 : i;
@@ -26,7 +33,11 @@ export default function ApplyLayout() {
   const path = usePathname();
   const current = stepIndex(path);
   const wide =
-    path.startsWith("/apply/cibil") || path.startsWith("/apply/offers") || path.startsWith("/apply/no-offer");
+    path.startsWith("/apply/cibil") ||
+    path.startsWith("/apply/offers") ||
+    path.startsWith("/apply/no-offer") ||
+    path.startsWith("/apply/addons") ||
+    path.startsWith("/apply/demo");
 
   return (
     <div className="apply-journey flex min-h-full flex-col bg-ivory">
@@ -34,6 +45,9 @@ export default function ApplyLayout() {
         <div className="mx-auto flex h-14 max-w-[1760px] items-center justify-between gap-2 px-3 sm:h-16 sm:px-6 lg:px-10">
           <Logo />
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Link href="/apply/demo" className="text-xs font-semibold text-spark-gold">
+              Dummy users
+            </Link>
             <ThemeSwitcher />
             <Link href="/" className="text-xs text-muted hover:text-navy sm:text-sm">
               <span className="sm:hidden">Home</span>

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { FileText, Headset, Home, LogOut, Sparkles, UserRound } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
-import { clearAuth, loadAuth } from "@/lib/session";
+import { clearSession, loadAuth } from "@/lib/session";
 import { cn } from "@/lib/cn";
 
 const links = [
@@ -38,7 +38,7 @@ export default function DashboardLayout() {
   }, [router]);
 
   function logout() {
-    clearAuth();
+    clearSession();
     router.push("/");
   }
 

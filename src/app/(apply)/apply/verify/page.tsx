@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { loadApply, saveApply, saveAuth } from "@/lib/session";
+import { loadApply, saveApply, saveAuthForMobile } from "@/lib/session";
+import { getDemoCustomerByMobile } from "@/lib/demo-customers";
 import { trackFunnel } from "@/lib/analytics";
 import { maskMobile } from "@/lib/format";
 
@@ -31,8 +32,9 @@ export default function VerifyPage() {
     }
     const s = loadApply();
     if (!s) return;
-    saveApply({ ...s, verified: true });
-    saveAuth({ mobile: s.mobile, name: s.name, loggedIn: true });
+    const demo = getDemoCustomerByMobile(s.mobile);
+    saveApply({ ...s, verified: true, demoCustomerId: demo?.id });
+    saveAuthForMobile(s.mobile, demo?.name ?? s.name);
     trackFunnel(2, "otp_verified");
     router.push("/apply/details");
   }

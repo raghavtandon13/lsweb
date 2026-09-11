@@ -1,0 +1,92 @@
+{
+  "id": "riya",
+  "name": "Riya Sharma",
+  "tag": "Loan ready",
+  "blurb": "Salaried, CIBIL 746. Walk the full apply journey — last page shows Loan offers.",
+  "hasLoanOffer": true,
+  "details": {
+    "name": "Riya Sharma",
+    "mobile": "9876543210",
+    "email": "riya.sharma@email.com",
+    "pan": "FQRPS1234L",
+    "pincode": "400051",
+    "income": "72000",
+    "employment": "salaried",
+    "dob": "1994-06-12",
+    "amount": "80000",
+    "purpose": "home"
+  },
+  "cibil": {
+    "score": 746,
+    "band": "Good",
+    "updated": "Today",
+    "utilisation": 28,
+    "accounts": 6,
+    "onTime": 0.97,
+    "enquiries90d": 1,
+    "paymentHistory": 96,
+    "accountsList": [
+      { "name": "HDFC Bank", "type": "Credit card", "status": "Active", "opened": "2019" },
+      { "name": "Aarohan Finance", "type": "Personal loan", "status": "Closed", "opened": "2022" },
+      { "name": "SBI", "type": "Savings linked", "status": "Active", "opened": "2017" }
+    ],
+    "issues": [
+      {
+        "title": "Keep utilisation under 30%",
+        "why": "Score is in the Good band. A card spike is the usual next dip.",
+        "fix": "Pay the statement in full where you can.",
+        "weight": "low"
+      }
+    ]
+  },
+  "lenderResponses": [
+    {
+      "lenderId": "ln_aarohan",
+      "lenderName": "Aarohan Finance",
+      "priority": 1,
+      "outcome": "accept",
+      "offer": {
+        "id": "off_riya_01",
+        "lender": "Aarohan Finance",
+        "product": "Short Term Personal Loan",
+        "amount": 80000,
+        "tenureMonths": 12,
+        "roi": 18.5,
+        "processingFee": "2% + GST",
+        "emi": 7346,
+        "disbursal": "24–48 hrs after KYC",
+        "highlights": ["No foreclosure in first 45 days", "NACH optional"],
+        "why": "Income and pincode match this lender’s short-term book.",
+        "productSlug": "short-term-personal",
+        "recommended": true
+      }
+    },
+    {
+      "lenderId": "ln_northstar",
+      "lenderName": "Northstar NBFC",
+      "priority": 2,
+      "outcome": "accept",
+      "offer": {
+        "id": "off_riya_02",
+        "lender": "Northstar NBFC",
+        "product": "Personal Loan",
+        "amount": 120000,
+        "tenureMonths": 24,
+        "roi": 16.99,
+        "processingFee": "₹1,999 flat",
+        "emi": 5912,
+        "disbursal": "3 working days",
+        "highlights": ["Insurance optional", "Part-prepay after 3 EMIs"],
+        "why": "Lower ROI for 24-month tenure on this profile.",
+        "productSlug": "personal"
+      }
+    },
+    {
+      "lenderId": "ln_kaveri",
+      "lenderName": "Kaveri Capital",
+      "priority": 3,
+      "outcome": "reject",
+      "reason": "Ticket above payday policy."
+    }
+  ]
+}

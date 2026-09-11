@@ -4,7 +4,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { isValidMobile, loadApply, saveApply } from "@/lib/session";
+import { isValidMobile, loadApply, loadAuth } from "@/lib/session";
+import { beginApplyLead, getDemoCustomerByMobile } from "@/lib/demo-customers";
 import { track, trackFunnel } from "@/lib/analytics";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 
@@ -14,12 +15,24 @@ export default function ApplyStartPage() {
   const [mobile, setMobile] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [error, setError] = useState("");
+  const [demoId, setDemoId] = useState("");
 
   useEffect(() => {
     const existing = loadApply();
-    if (existing?.name) setName(existing.name);
-    if (existing?.mobile) setMobile(existing.mobile);
-    if (existing?.termsAccepted) setTermsAccepted(true);
+    if (existing?.mobile) {
+      setName(existing.name ?? "");
+      setMobile(existing.mobile);
+      if (existing.termsAccepted) setTermsAccepted(true);
+      setDemoId(getDemoCustomerByMobile(existing.mobile)?.id ?? "");
+      return;
+    }
+    const auth = loadAuth();
+    if (auth?.loggedIn && auth.mobile) {
+      const demo = getDemoCustomerByMobile(auth.mobile);
+      setMobile(auth.mobile);
+      setName(auth.name ?? demo?.name ?? "");
+      setDemoId(demo?.id ?? "");
+    }
   }, []);
 
   function onSubmit(e: FormEvent) {
@@ -38,14 +51,7 @@ export default function ApplyStartPage() {
       setError(TERMS_REQUIRED_MESSAGE);
       return;
     }
-    saveApply({
-      ...(loadApply() ?? {}),
-      name: n,
-      mobile: m,
-      otpSentAt: new Date().toISOString(),
-      status: "draft",
-      termsAccepted: true,
-    });
+    beginApplyLead({ name: n, mobile: m, termsAccepted: true });
     track("generate_lead", { lead_source: "apply_form" });
     trackFunnel(1, "apply_start", { lead_source: "apply_form" });
     router.push("/apply/verify");
@@ -74,7 +80,11 @@ export default function ApplyStartPage() {
             inputMode="numeric"
             autoComplete="tel"
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value;
+              setMobile(v);
+              setDemoId(getDemoCustomerByMobile(v)?.id ?? "");
+            }}
             placeholder="10-digit mobile"
           />
         </Field>
@@ -86,10 +96,15 @@ export default function ApplyStartPage() {
           }}
           className="mt-0"
         />
-        {error && <p className="text-sm text-danger">{error}</p>}
-        <Button type="submit" size="lg" className="w-full" disabled={!termsAccepted}>
-          Send OTP
-        </Button>
+      {error && <p className="text-sm text-danger">{error}</p>}
+      <Button type="submit" size="lg" className="w-full" disabled={!termsAccepted}>
+        Send OTP
+      </Button>
+      {demoId && (
+        <p className="text-center text-xs text-muted">
+          Dummy user from src/data/dummy-users/{demoId}.json — same steps as a real journey.
+        </p>
+      )}
       </div>
     </form>
   );

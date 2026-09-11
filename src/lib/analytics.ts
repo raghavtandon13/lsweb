@@ -23,6 +23,8 @@ const PATH_FUNNEL: Record<string, { step: number; name: string }> = {
   "/apply/processing": { step: 4, name: "cibil_fetch_view" },
   "/apply/cibil": { step: 5, name: "cibil_view" },
   "/apply/cibil/details": { step: 5, name: "cibil_details_view" },
+  "/apply/addons": { step: 7, name: "addons_view" },
+  "/apply/demo": { step: 0, name: "demo_cast_view" },
   "/apply/offers": { step: 6, name: "offers_view" },
   "/apply/no-offer": { step: 7, name: "no_offer_view" },
 };

@@ -26,6 +26,10 @@ import ProcessingPage from "@/app/(apply)/apply/processing/page";
 import OffersPage from "@/app/(apply)/apply/offers/page";
 import CibilPage from "@/app/(apply)/apply/cibil/page";
 import CibilDetailsPage from "@/app/(apply)/apply/cibil/details/page";
+import AddonsPage from "@/app/(apply)/apply/addons/page";
+import AddonPayPage from "@/app/(apply)/apply/addons/[slug]/page";
+import AddonDonePage from "@/app/(apply)/apply/addons/[slug]/done/page";
+import DemoCustomersPage from "@/app/(apply)/apply/demo/page";
 import NoOfferPage from "@/app/(apply)/apply/no-offer/page";
 import LoginPage from "@/app/(account)/login/page";
 import DashboardHomePage from "@/app/(account)/dashboard/page";
@@ -84,6 +88,10 @@ export default function App() {
         <Route path="/apply/processing" element={<ProcessingPage />} />
         <Route path="/apply/cibil" element={<CibilPage />} />
         <Route path="/apply/cibil/details" element={<CibilDetailsPage />} />
+        <Route path="/apply/addons" element={<AddonsPage />} />
+        <Route path="/apply/addons/:slug/done" element={<AddonDonePage />} />
+        <Route path="/apply/addons/:slug" element={<AddonPayPage />} />
+        <Route path="/apply/demo" element={<DemoCustomersPage />} />
         <Route path="/apply/offers" element={<OffersPage />} />
         <Route path="/apply/no-offer" element={<NoOfferPage />} />
       </Route>

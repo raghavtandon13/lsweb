@@ -1,24 +1,39 @@
-import { mockProfile } from "@/lib/mock";
+"use client";
+
+import { useEffect, useState } from "react";
 import { maskMobile, maskPan, inr } from "@/lib/format";
 import { DashHead } from "@/components/dashboard/bits";
+import { sessionCustomer } from "@/lib/demo-customers";
+import { employmentLabel, type EmploymentType } from "@/lib/session";
 
-const rows = [
-  ["Name", mockProfile.name],
-  ["Mobile", maskMobile(mockProfile.mobile)],
-  ["Email", mockProfile.email],
-  ["PAN", maskPan(mockProfile.pan)],
-  ["Date of birth", mockProfile.dob],
-  ["Pincode", mockProfile.pincode],
-  ["Employment", mockProfile.employment],
-  ["Declared income", inr(mockProfile.income)],
-];
+type Row = [string, string];
 
 export default function ProfilePage() {
+  const [rows, setRows] = useState<Row[]>([]);
+
+  useEffect(() => {
+    const { auth, demo, apply } = sessionCustomer();
+    const d = demo?.details;
+    const mobile = d?.mobile ?? apply?.mobile ?? auth?.mobile ?? "";
+    const emp = (d?.employment ?? apply?.employment) as EmploymentType | undefined;
+    const income = d?.income ?? apply?.income;
+    setRows([
+      ["Name", d?.name ?? apply?.name ?? auth?.name ?? "—"],
+      ["Mobile", mobile ? maskMobile(mobile) : "—"],
+      ["Email", d?.email ?? apply?.email ?? "—"],
+      ["PAN", d?.pan ? maskPan(d.pan) : apply?.pan ? maskPan(apply.pan) : "—"],
+      ["Date of birth", d?.dob ?? apply?.dob ?? "—"],
+      ["Pincode", d?.pincode ?? apply?.pincode ?? "—"],
+      ["Employment", emp ? employmentLabel[emp] : "—"],
+      ["Declared income", income ? inr(Number(income)) : "—"],
+    ]);
+  }, []);
+
   return (
     <div className="max-w-xl">
       <DashHead
         title="Profile"
-        body="Identity fields lenders already saw. PAN edits will need a verified flow once the profile API exists."
+        body="Identity fields for this mobile. Logout clears the session so the next number starts as a new customer."
       />
       <dl className="card mt-6 divide-y divide-line">
         {rows.map(([k, v]) => (

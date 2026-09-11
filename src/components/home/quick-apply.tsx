@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { BadgeCheck, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { isValidMobile, saveApply } from "@/lib/session";
+import { isValidMobile } from "@/lib/session";
+import { beginApplyLead } from "@/lib/demo-customers";
 import { track, trackFunnel } from "@/lib/analytics";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 import { cn } from "@/lib/cn";
@@ -33,13 +34,7 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
       setError(TERMS_REQUIRED_MESSAGE);
       return;
     }
-    saveApply({
-      name: n,
-      mobile: m,
-      otpSentAt: new Date().toISOString(),
-      status: "draft",
-      termsAccepted: true,
-    });
+    beginApplyLead({ name: n, mobile: m, termsAccepted: true });
     track("generate_lead", { lead_source: "home_quick_apply" });
     trackFunnel(1, "apply_start", { lead_source: "home_quick_apply" });
     router.push("/apply/verify");

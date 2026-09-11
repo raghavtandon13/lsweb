@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { buildCibilReport, isNoOfferProfile } from "@/lib/cibil";
+import { buildCibilReport } from "@/lib/cibil";
+import { acceptedOffers, simulateLenderPush } from "@/lib/lender-outcomes";
+import { resolveDemoCustomer } from "@/lib/demo-customers";
 import { loadApply, saveApply } from "@/lib/session";
 import { trackFunnel } from "@/lib/analytics";
 
-const lines = ["Fetching CIBIL…", "Reading payment history…", "Matching eligible lenders…"];
+const lines = ["Checking duplicates…", "Pushing to lenders…", "Saving lender responses…"];
 
 export default function ProcessingPage() {
   const router = useRouter();
@@ -22,10 +24,14 @@ export default function ProcessingPage() {
     const done = window.setTimeout(() => {
       const current = loadApply();
       if (!current) return;
-      const noOffer = isNoOfferProfile(current);
+      const demo = resolveDemoCustomer(current);
+      const lenderResponses = demo?.lenderResponses ?? simulateLenderPush(current);
+      const noOffer = !acceptedOffers(lenderResponses).length;
       saveApply({
         ...current,
-        cibil: buildCibilReport(current),
+        demoCustomerId: demo?.id,
+        cibil: demo?.cibil ?? buildCibilReport(current),
+        lenderResponses,
         status: noOffer ? "no_offer" : "eligible",
       });
       trackFunnel(5, "eligibility_completed", { outcome: noOffer ? "no_offer" : "eligible" });

@@ -7,7 +7,8 @@ import { ThemeSwitcher } from "@/components/layout/theme-switcher";
 import { FinanceBackdrop } from "@/components/brand/finance-backdrop";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { isValidMobile, saveAuth } from "@/lib/session";
+import { isValidMobile, saveAuthForMobile } from "@/lib/session";
+import { getDemoCustomerByMobile, hydrateDemoSession } from "@/lib/demo-customers";
 import { track } from "@/lib/analytics";
 import Link from "next/link";
 
@@ -36,7 +37,9 @@ export default function LoginPage() {
       setError("Enter 6-digit OTP.");
       return;
     }
-    saveAuth({ mobile, loggedIn: true, name: "Riya Sharma" });
+    const demo = getDemoCustomerByMobile(mobile);
+    saveAuthForMobile(mobile, demo?.name ?? "Customer");
+    if (demo) hydrateDemoSession(mobile);
     track("login", { method: "otp" });
     router.push("/dashboard");
   }
@@ -60,7 +63,7 @@ export default function LoginPage() {
         <p className="mt-2 text-sm text-muted">
           {step === "mobile"
             ? "We send an OTP to your mobile. No password needed."
-            : "For this demo, any 6 digits work."}
+            : "For this demo, any 6 digits work. Dummy users load by mobile number."}
         </p>
         {step === "mobile" ? (
           <Field label="Mobile" className="mt-8">

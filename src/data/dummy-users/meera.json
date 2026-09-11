@@ -1,0 +1,85 @@
+{
+  "id": "meera",
+  "name": "Meera Iyer",
+  "tag": "Loan + Credit Cure",
+  "blurb": "Fair 684. Full journey — last page has Loan offers and Credit Cure tabs.",
+  "hasLoanOffer": true,
+  "details": {
+    "name": "Meera Iyer",
+    "mobile": "9822233344",
+    "email": "meera.iyer@email.com",
+    "pan": "MEERI4411P",
+    "pincode": "560001",
+    "income": "41000",
+    "employment": "self_employed",
+    "dob": "1992-11-04",
+    "amount": "120000",
+    "purpose": "business"
+  },
+  "cibil": {
+    "score": 684,
+    "band": "Fair",
+    "updated": "Today",
+    "utilisation": 44,
+    "accounts": 5,
+    "onTime": 0.9,
+    "enquiries90d": 3,
+    "paymentHistory": 88,
+    "accountsList": [
+      { "name": "ICICI card", "type": "Credit card", "status": "Active", "opened": "2020" },
+      { "name": "Northstar", "type": "Personal loan", "status": "Active", "opened": "2023" },
+      { "name": "Flipkart Pay", "type": "Consumer", "status": "Active", "opened": "2024" }
+    ],
+    "issues": [
+      {
+        "title": "Utilisation sitting at 44%",
+        "why": "Fair band is almost always utilisation plus extra enquiries.",
+        "fix": "Pay cards down before statement.",
+        "weight": "high"
+      },
+      {
+        "title": "Three enquiries this quarter",
+        "why": "Each extra pull slows the climb to 700+.",
+        "fix": "Use one marketplace check instead of applying at three sites.",
+        "weight": "medium"
+      }
+    ]
+  },
+  "lenderResponses": [
+    {
+      "lenderId": "ln_northstar",
+      "lenderName": "Northstar NBFC",
+      "priority": 1,
+      "outcome": "accept",
+      "offer": {
+        "id": "off_meera_01",
+        "lender": "Northstar NBFC",
+        "product": "Personal Loan",
+        "amount": 100000,
+        "tenureMonths": 24,
+        "roi": 19.5,
+        "processingFee": "₹1,999 flat",
+        "emi": 5080,
+        "disbursal": "3 working days",
+        "highlights": ["Insurance optional"],
+        "why": "Self-employed income still prices on this book.",
+        "productSlug": "personal",
+        "recommended": true
+      }
+    },
+    {
+      "lenderId": "ln_aarohan",
+      "lenderName": "Aarohan Finance",
+      "priority": 2,
+      "outcome": "reject",
+      "reason": "Utilisation and enquiries outside short-term policy."
+    },
+    {
+      "lenderId": "ln_kaveri",
+      "lenderName": "Kaveri Capital",
+      "priority": 3,
+      "outcome": "dedupe",
+      "reason": "Open payday file already exists."
+    }
+  ]
+}

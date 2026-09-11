@@ -1,4 +1,5 @@
 import type { CibilReport } from "@/lib/cibil";
+import type { LenderResponse } from "@/lib/lender-outcomes";
 
 export const APPLY_KEY = "loansparrow.apply";
 export const AUTH_KEY = "loansparrow.auth";
@@ -10,6 +11,15 @@ export type EmploymentType =
   | "student"
   | "homemaker"
   | "other";
+
+export const employmentLabel: Record<EmploymentType, string> = {
+  salaried: "Salaried",
+  self_employed: "Self-employed",
+  business: "Business / MSME",
+  student: "Student",
+  homemaker: "Homemaker",
+  other: "Other",
+};
 
 export type ApplyState = {
   mobile: string;
@@ -36,6 +46,10 @@ export type ApplyState = {
   status?: "draft" | "processing" | "eligible" | "no_offer";
   cibilOtpVerified?: boolean;
   cibil?: CibilReport;
+  demoCustomerId?: string;
+  purchasedAddons?: string[];
+  /** Full lender push log. UI shows only outcome === "accept". */
+  lenderResponses?: LenderResponse[];
 };
 
 export type AuthState = {
@@ -43,6 +57,10 @@ export type AuthState = {
   name?: string;
   loggedIn: boolean;
 };
+
+export function normaliseMobile(mobile: string) {
+  return mobile.replace(/\D/g, "").slice(-10);
+}
 
 export function loadApply(): ApplyState | null {
   if (typeof window === "undefined") return null;
@@ -85,7 +103,22 @@ export function isValidPan(pan: string) {
 }
 
 export function isValidMobile(mobile: string) {
-  return /^[6-9]\d{9}$/.test(mobile.replace(/\D/g, "").slice(-10));
+  return /^[6-9]\d{9}$/.test(normaliseMobile(mobile));
+}
+
+export function clearSession() {
+  clearAuth();
+  clearApply();
+}
+
+/** Login / OTP: bind this mobile and drop another customer's apply file. */
+export function saveAuthForMobile(mobile: string, name?: string) {
+  const m = normaliseMobile(mobile);
+  const apply = loadApply();
+  if (apply && normaliseMobile(apply.mobile) !== m) {
+    clearApply();
+  }
+  saveAuth({ mobile: m, name, loggedIn: true });
 }
 
 export function isValidPincode(pincode: string) {
