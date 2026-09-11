@@ -1,40 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
 export function Reveal({
-  children,
-  className,
-  delay = 0,
+    children,
+    className,
+    delay = 0,
 }: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
+    children: ReactNode;
+    className?: string;
+    delay?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [on, setOn] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+    const [on, setOn] = useState(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setOn(true);
-      },
-      { threshold: 0.14, rootMargin: "0px 0px -40px 0px" },
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) setOn(true);
+            },
+            { threshold: 0.14, rootMargin: "0px 0px -40px 0px" },
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
+
+    return (
+        <div className={cn("reveal", on && "reveal-in", className)} ref={ref} style={{ transitionDelay: `${delay}ms` }}>
+            {children}
+        </div>
     );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={cn("reveal", on && "reveal-in", className)}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
 }

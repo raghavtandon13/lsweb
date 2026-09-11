@@ -5,15 +5,15 @@ import { useLocation } from "react-router-dom";
 import { initAnalytics, trackPageView } from "@/lib/analytics";
 
 export function PageTracker() {
-  const { pathname } = useLocation();
+    const { pathname } = useLocation();
 
-  useEffect(() => {
-    initAnalytics();
-  }, []);
+    useEffect(() => {
+        initAnalytics();
+    }, []);
 
-  useEffect(() => {
-    trackPageView(pathname);
-  }, [pathname]);
+    useEffect(() => {
+        trackPageView(pathname);
+    }, [pathname]);
 
-  return null;
+    return null;
 }

@@ -1,77 +1,77 @@
 {
-  "id": "aman",
-  "name": "Aman Verma",
-  "tag": "No loan offer",
-  "blurb": "CIBIL 598, overdue. Both tabs — Loan offers empty state + Credit Cure.",
-  "hasLoanOffer": false,
-  "details": {
+    "id": "aman",
     "name": "Aman Verma",
-    "mobile": "9811122233",
-    "email": "aman.verma@email.com",
-    "pan": "AMNPV9988K",
-    "pincode": "110001",
-    "income": "28000",
-    "employment": "salaried",
-    "dob": "1996-03-21",
-    "amount": "50000",
-    "purpose": "other"
-  },
-  "cibil": {
-    "score": 598,
-    "band": "Needs work",
-    "updated": "Today",
-    "utilisation": 78,
-    "accounts": 4,
-    "onTime": 0.71,
-    "enquiries90d": 6,
-    "paymentHistory": 64,
-    "accountsList": [
-      { "name": "Axis card", "type": "Credit card", "status": "Active", "opened": "2021" },
-      { "name": "BNPL", "type": "Consumer", "status": "Overdue", "opened": "2025" },
-      { "name": "Payday", "type": "Personal loan", "status": "Closed", "opened": "2024" }
-    ],
-    "issues": [
-      {
-        "title": "Missed payments",
-        "why": "Late card and BNPL dues are the heaviest drag on this file.",
-        "fix": "Clear overdue, then follow Credit Cure week by week.",
-        "weight": "high"
-      },
-      {
-        "title": "Utilisation at 78%",
-        "why": "Lenders read this as stretched income.",
-        "fix": "Bring revolving balance below 30% of limit.",
-        "weight": "high"
-      },
-      {
-        "title": "Six enquiries in 90 days",
-        "why": "Looks like shopping for credit in distress.",
-        "fix": "Stop new hard applications.",
-        "weight": "medium"
-      }
+    "tag": "No loan offer",
+    "blurb": "CIBIL 598, overdue. Both tabs — Loan offers empty state + Credit Cure.",
+    "hasLoanOffer": false,
+    "details": {
+        "name": "Aman Verma",
+        "mobile": "9811122233",
+        "email": "aman.verma@email.com",
+        "pan": "AMNPV9988K",
+        "pincode": "110001",
+        "income": "28000",
+        "employment": "salaried",
+        "dob": "1996-03-21",
+        "amount": "50000",
+        "purpose": "other"
+    },
+    "cibil": {
+        "score": 598,
+        "band": "Needs work",
+        "updated": "Today",
+        "utilisation": 78,
+        "accounts": 4,
+        "onTime": 0.71,
+        "enquiries90d": 6,
+        "paymentHistory": 64,
+        "accountsList": [
+            { "name": "Axis card", "type": "Credit card", "status": "Active", "opened": "2021" },
+            { "name": "BNPL", "type": "Consumer", "status": "Overdue", "opened": "2025" },
+            { "name": "Payday", "type": "Personal loan", "status": "Closed", "opened": "2024" }
+        ],
+        "issues": [
+            {
+                "title": "Missed payments",
+                "why": "Late card and BNPL dues are the heaviest drag on this file.",
+                "fix": "Clear overdue, then follow Credit Cure week by week.",
+                "weight": "high"
+            },
+            {
+                "title": "Utilisation at 78%",
+                "why": "Lenders read this as stretched income.",
+                "fix": "Bring revolving balance below 30% of limit.",
+                "weight": "high"
+            },
+            {
+                "title": "Six enquiries in 90 days",
+                "why": "Looks like shopping for credit in distress.",
+                "fix": "Stop new hard applications.",
+                "weight": "medium"
+            }
+        ]
+    },
+    "lenderResponses": [
+        {
+            "lenderId": "ln_aarohan",
+            "lenderName": "Aarohan Finance",
+            "priority": 1,
+            "outcome": "reject",
+            "reason": "Overdue tradelines on file."
+        },
+        {
+            "lenderId": "ln_northstar",
+            "lenderName": "Northstar NBFC",
+            "priority": 2,
+            "outcome": "reject",
+            "reason": "Score and utilisation outside policy."
+        },
+        {
+            "lenderId": "ln_kaveri",
+            "lenderName": "Kaveri Capital",
+            "priority": 3,
+            "outcome": "dedupe",
+            "reason": "Recent payday application already exists."
+        }
     ]
-  },
-  "lenderResponses": [
-    {
-      "lenderId": "ln_aarohan",
-      "lenderName": "Aarohan Finance",
-      "priority": 1,
-      "outcome": "reject",
-      "reason": "Overdue tradelines on file."
-    },
-    {
-      "lenderId": "ln_northstar",
-      "lenderName": "Northstar NBFC",
-      "priority": 2,
-      "outcome": "reject",
-      "reason": "Score and utilisation outside policy."
-    },
-    {
-      "lenderId": "ln_kaveri",
-      "lenderName": "Kaveri Capital",
-      "priority": 3,
-      "outcome": "dedupe",
-      "reason": "Recent payday application already exists."
-    }
-  ]
 }

@@ -1,69 +1,67 @@
 {
-  "id": "kabir",
-  "name": "Kabir Singh",
-  "tag": "No loan offer",
-  "blurb": "Student, thin file, CIBIL 612. Both tabs — Loan offers empty state + Credit Cure.",
-  "hasLoanOffer": false,
-  "details": {
+    "id": "kabir",
     "name": "Kabir Singh",
-    "mobile": "9833344455",
-    "email": "kabir.singh@email.com",
-    "pan": "KABRS2200Q",
-    "pincode": "160017",
-    "income": "8000",
-    "employment": "student",
-    "dob": "2003-08-18",
-    "amount": "20000",
-    "purpose": "education"
-  },
-  "cibil": {
-    "score": 612,
-    "band": "Needs work",
-    "updated": "Today",
-    "utilisation": 22,
-    "accounts": 1,
-    "onTime": 1,
-    "enquiries90d": 2,
-    "paymentHistory": 80,
-    "accountsList": [
-      { "name": "Campus card", "type": "Credit card", "status": "Active", "opened": "2025" }
-    ],
-    "issues": [
-      {
-        "title": "Thin file",
-        "why": "One new card is not enough history for unsecured lenders.",
-        "fix": "Credit builder loan adds a reported instalment line.",
-        "weight": "high"
-      },
-      {
-        "title": "Student / low documented income",
-        "why": "Partners declined unsecured personal on policy.",
-        "fix": "Credit Cure plus gold or FD products.",
-        "weight": "high"
-      }
+    "tag": "No loan offer",
+    "blurb": "Student, thin file, CIBIL 612. Both tabs — Loan offers empty state + Credit Cure.",
+    "hasLoanOffer": false,
+    "details": {
+        "name": "Kabir Singh",
+        "mobile": "9833344455",
+        "email": "kabir.singh@email.com",
+        "pan": "KABRS2200Q",
+        "pincode": "160017",
+        "income": "8000",
+        "employment": "student",
+        "dob": "2003-08-18",
+        "amount": "20000",
+        "purpose": "education"
+    },
+    "cibil": {
+        "score": 612,
+        "band": "Needs work",
+        "updated": "Today",
+        "utilisation": 22,
+        "accounts": 1,
+        "onTime": 1,
+        "enquiries90d": 2,
+        "paymentHistory": 80,
+        "accountsList": [{ "name": "Campus card", "type": "Credit card", "status": "Active", "opened": "2025" }],
+        "issues": [
+            {
+                "title": "Thin file",
+                "why": "One new card is not enough history for unsecured lenders.",
+                "fix": "Credit builder loan adds a reported instalment line.",
+                "weight": "high"
+            },
+            {
+                "title": "Student / low documented income",
+                "why": "Partners declined unsecured personal on policy.",
+                "fix": "Credit Cure plus gold or FD products.",
+                "weight": "high"
+            }
+        ]
+    },
+    "lenderResponses": [
+        {
+            "lenderId": "ln_aarohan",
+            "lenderName": "Aarohan Finance",
+            "priority": 1,
+            "outcome": "reject",
+            "reason": "Student / low documented income."
+        },
+        {
+            "lenderId": "ln_northstar",
+            "lenderName": "Northstar NBFC",
+            "priority": 2,
+            "outcome": "reject",
+            "reason": "Thin file — not enough history."
+        },
+        {
+            "lenderId": "ln_kaveri",
+            "lenderName": "Kaveri Capital",
+            "priority": 3,
+            "outcome": "dedupe",
+            "reason": "Campus product already applied this month."
+        }
     ]
-  },
-  "lenderResponses": [
-    {
-      "lenderId": "ln_aarohan",
-      "lenderName": "Aarohan Finance",
-      "priority": 1,
-      "outcome": "reject",
-      "reason": "Student / low documented income."
-    },
-    {
-      "lenderId": "ln_northstar",
-      "lenderName": "Northstar NBFC",
-      "priority": 2,
-      "outcome": "reject",
-      "reason": "Thin file — not enough history."
-    },
-    {
-      "lenderId": "ln_kaveri",
-      "lenderName": "Kaveri Capital",
-      "priority": 3,
-      "outcome": "dedupe",
-      "reason": "Campus product already applied this month."
-    }
-  ]
 }
