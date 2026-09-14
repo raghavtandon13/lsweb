@@ -6,10 +6,10 @@ import { type FormEvent, useState } from "react";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
+import { ApiError, sendOtp } from "@/lib/api";
 import { track, trackFunnel } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
-import { beginApplyLead } from "@/lib/demo-customers";
-import { isValidMobile } from "@/lib/session";
+import { isValidMobile, loadApply, saveApply } from "@/lib/session";
 
 export function QuickApply({ embedded = false }: { embedded?: boolean }) {
     const router = useRouter();
@@ -17,8 +17,9 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
     const [mobile, setMobile] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [error, setError] = useState("");
+    const [sending, setSending] = useState(false);
 
-    function onSubmit(e: FormEvent) {
+    async function onSubmit(e: FormEvent) {
         e.preventDefault();
         const n = name.trim();
         const m = mobile.replace(/\D/g, "").slice(-10);
@@ -34,10 +35,29 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
             setError(TERMS_REQUIRED_MESSAGE);
             return;
         }
-        beginApplyLead({ name: n, mobile: m, termsAccepted: true });
-        track("generate_lead", { lead_source: "home_quick_apply" });
-        trackFunnel(1, "apply_start", { lead_source: "home_quick_apply" });
-        router.push("/apply/verify");
+        setSending(true);
+        setError("");
+        try {
+            await sendOtp({ phone: m, name: n, utmSource: "loansparrow_web" });
+            const existing = loadApply();
+            const base = existing && existing.mobile === m ? existing : {};
+            saveApply({
+                ...base,
+                name: n,
+                mobile: m,
+                otpSentAt: new Date().toISOString(),
+                termsAccepted: true,
+                verified: false,
+                status: "draft",
+            });
+            track("generate_lead", { lead_source: "home_quick_apply" });
+            trackFunnel(1, "apply_start", { lead_source: "home_quick_apply" });
+            router.push("/apply/verify");
+        } catch (err) {
+            setError(err instanceof ApiError ? err.message : "Could not send OTP. Try again.");
+        } finally {
+            setSending(false);
+        }
     }
 
     return (
@@ -89,8 +109,8 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
 
                 {error && <p className="mt-3 text-base text-danger">{error}</p>}
 
-                <Button className="mt-6 w-full" disabled={!termsAccepted} size="lg" type="submit" variant="gold">
-                    Get OTP & continue
+                <Button className="mt-6 w-full" disabled={!termsAccepted || sending} size="lg" type="submit" variant="gold">
+                    {sending ? "Sending…" : "Get OTP & continue"}
                 </Button>
 
                 <div className="mt-5 flex items-center justify-center gap-5 text-[15px] text-navy">

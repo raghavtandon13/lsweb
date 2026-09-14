@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, Headset, Home, LogOut, Sparkles, UserRound } from "lucide-react";
+import { Headset, Home, LogOut, Sparkles, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +12,6 @@ import { clearSession, loadAuth } from "@/lib/session";
 
 const links = [
     { href: "/dashboard", label: "Home", icon: Home },
-    { href: "/dashboard/applications", label: "Applications", icon: FileText },
     { href: "/dashboard/offers", label: "Offers", icon: Sparkles },
     { href: "/dashboard/profile", label: "Profile", icon: UserRound },
     { href: "/dashboard/support", label: "Support", icon: Headset },

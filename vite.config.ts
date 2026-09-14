@@ -16,6 +16,9 @@ export default defineConfig({
         },
     },
     server: {
-        port: 3000,
+        // 5173 (Vite's default) — relaycore's own backend already owns :3000, and its
+        // CORS allowlist is keyed to 5173 for local dev. The app calls the API directly
+        // (VITE_API_BASE_URL) over CORS rather than through a dev proxy.
+        port: 5173,
     },
 });

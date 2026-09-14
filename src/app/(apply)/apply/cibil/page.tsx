@@ -11,9 +11,7 @@ import { addons } from "@/lib/addons";
 import { trackFunnel } from "@/lib/analytics";
 import { eligibleCategories } from "@/lib/cibil";
 import { cn } from "@/lib/cn";
-import { resolveDemoCustomer } from "@/lib/demo-customers";
-import { acceptedOffers } from "@/lib/lender-outcomes";
-import { mockOffers } from "@/lib/mock";
+import { toDisplayOffer } from "@/lib/offers";
 import { type ApplyState, loadApply } from "@/lib/session";
 
 export default function CibilPage() {
@@ -31,35 +29,21 @@ export default function CibilPage() {
             router.replace("/apply/processing");
             return;
         }
-        trackFunnel(5, "cibil_shown", { score_band: s.cibil.band, demo: s.demoCustomerId ?? "" });
+        trackFunnel(5, "cibil_shown", { score_band: s.cibil.band });
         setApply(s);
     }, [router]);
 
     const report = apply?.cibil;
     if (!report || !apply) return null;
 
-    const demo = resolveDemoCustomer(apply);
-    const responses = apply.lenderResponses ?? demo?.lenderResponses;
     const cats = eligibleCategories(report.score, apply.status === "no_offer");
-    const eligibleSlugs = new Set(cats.filter((c) => c.eligible).map((c) => c.slug));
-    const lenders = responses?.length
-        ? acceptedOffers(responses)
-        : apply.status === "no_offer"
-          ? []
-          : mockOffers.filter((o) => !o.productSlug || eligibleSlugs.has(o.productSlug));
+    const lenders = (apply.offers ?? []).map(toDisplayOffer);
     const noOffer = lenders.length === 0;
     const pct = Math.round(((report.score - 300) / 600) * 100);
     const bought = new Set(apply.purchasedAddons ?? []);
 
     return (
         <div className="space-y-4 sm:space-y-5">
-            {demo && (
-                <p className="text-xs text-muted">
-                    Dummy file{" "}
-                    <span className="font-mono text-[11px] text-navy">src/data/dummy-users/{demo.id}.json</span>
-                </p>
-            )}
-
             <Link className="card flex items-center gap-3 p-4 sm:gap-5 sm:p-5" href="/apply/cibil/details">
                 <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 sm:h-24 sm:w-24">
                     <div

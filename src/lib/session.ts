@@ -1,3 +1,4 @@
+import type { AcceptedOffer } from "@/lib/api";
 import type { CibilReport } from "@/lib/cibil";
 import type { LenderResponse } from "@/lib/lender-outcomes";
 
@@ -44,12 +45,16 @@ export type ApplyState = {
     purchasedAddons?: string[];
     /** Full lender push log. UI shows only outcome === "accept". */
     lenderResponses?: LenderResponse[];
+    /** Real getOffers() result — accepted outcomes from the last 30 days. */
+    offers?: AcceptedOffer[];
 };
 
 export type AuthState = {
     mobile: string;
     name?: string;
     loggedIn: boolean;
+    /** JWT from POST /api/v1/auth/verify-otp. Bearer token for /api/v1/me/*. */
+    token?: string;
 };
 
 export function normaliseMobile(mobile: string) {
@@ -106,13 +111,18 @@ export function clearSession() {
 }
 
 /** Login / OTP: bind this mobile and drop another customer's apply file. */
-export function saveAuthForMobile(mobile: string, name?: string) {
+export function saveAuthForMobile(mobile: string, name: string | undefined, token: string) {
     const m = normaliseMobile(mobile);
     const apply = loadApply();
     if (apply && normaliseMobile(apply.mobile) !== m) {
         clearApply();
     }
-    saveAuth({ mobile: m, name, loggedIn: true });
+    saveAuth({ mobile: m, name, loggedIn: true, token });
+}
+
+/** Bearer token for the current session, or null when not logged in. */
+export function authToken(): string | null {
+    return loadAuth()?.token ?? null;
 }
 
 export function isValidPincode(pincode: string) {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/cn";
+import { loadAuth } from "@/lib/session";
 import { nav } from "@/lib/site";
 
 type MenuItem = { href: string; label: string; hint?: string };
@@ -19,6 +20,11 @@ const sections: { id: string; label: string; items: MenuItem[] }[] = [
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     const [expanded, setExpanded] = useState<string | null>("loans");
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        setLoggedIn(Boolean(loadAuth()?.loggedIn));
+    }, []);
 
     useEffect(() => {
         if (!open) return;
@@ -107,9 +113,15 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                     <ButtonLink className="w-full" href="/apply" onClick={onClose} size="lg" variant="gold">
                         Apply now
                     </ButtonLink>
-                    <ButtonLink className="w-full" href="/login" onClick={onClose} size="lg" variant="outline">
-                        Customer login
-                    </ButtonLink>
+                    {loggedIn ? (
+                        <ButtonLink className="w-full" href="/dashboard/profile" onClick={onClose} size="lg" variant="outline">
+                            My profile
+                        </ButtonLink>
+                    ) : (
+                        <ButtonLink className="w-full" href="/login" onClick={onClose} size="lg" variant="outline">
+                            Customer login
+                        </ButtonLink>
+                    )}
                     <ButtonLink className="w-full" href="/help/contact" onClick={onClose} size="lg" variant="navy">
                         Contact us
                     </ButtonLink>

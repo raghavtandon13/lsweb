@@ -1,58 +1,51 @@
-import { ButtonLink } from "@/components/ui/button-link";
 import { track } from "@/lib/analytics";
 import { inr } from "@/lib/format";
-import type { Offer } from "@/lib/mock";
+import type { DisplayOffer } from "@/lib/offers";
 
-export function LenderCard({ offer }: { offer: Offer }) {
+export function LenderCard({ offer }: { offer: DisplayOffer }) {
+    const stats: { label: string; value: string }[] = [];
+    if (offer.amount != null) stats.push({ label: "Amount", value: inr(offer.amount) });
+    if (offer.emi != null) stats.push({ label: "EMI", value: inr(offer.emi) });
+    if (offer.roi != null) stats.push({ label: "ROI", value: `${offer.roi}% p.a.` });
+    if (offer.tenureMonths != null) stats.push({ label: "Tenure", value: `${offer.tenureMonths} mo` });
+
     return (
         <article className="overflow-hidden rounded-2xl border border-line bg-white">
             <div className="h-1 bg-gradient-to-r from-spark-gold via-spark-mint to-navy" />
             <div className="p-4 sm:p-5">
-                <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                        <p className="text-xs text-muted sm:text-sm">{offer.lender}</p>
-                        <h3 className="font-serif text-lg text-navy sm:text-xl">{offer.product}</h3>
-                    </div>
-                    {offer.recommended && (
-                        <span className="shrink-0 rounded-full bg-[#fff8e4] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#c48a10] sm:text-[11px]">
-                            Best fit
-                        </span>
-                    )}
-                </div>
-                <dl className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-sm sm:grid-cols-4">
-                    <div>
-                        <dt className="text-xs text-muted">Amount</dt>
-                        <dd className="font-semibold text-spark-gold">{inr(offer.amount)}</dd>
-                    </div>
-                    <div>
-                        <dt className="text-xs text-muted">EMI</dt>
-                        <dd className="font-semibold text-navy">{inr(offer.emi)}</dd>
-                    </div>
-                    <div>
-                        <dt className="text-xs text-muted">ROI</dt>
-                        <dd className="font-semibold text-navy">{offer.roi}% p.a.</dd>
-                    </div>
-                    <div>
-                        <dt className="text-xs text-muted">Tenure</dt>
-                        <dd className="font-semibold text-navy">{offer.tenureMonths} mo</dd>
-                    </div>
-                </dl>
-                {offer.why && <p className="mt-3 text-xs leading-5 text-muted sm:text-sm">{offer.why}</p>}
-                <ButtonLink
-                    className="mt-4 w-full"
-                    href="/dashboard/applications/SU-240918-1842"
-                    onClick={() =>
-                        track("select_item", {
-                            item_id: offer.id,
-                            item_name: offer.lender,
-                            item_category: "loan_offer",
-                            item_variant: offer.product,
-                        })
-                    }
-                    size="md"
-                >
-                    Apply with {offer.lender}
-                </ButtonLink>
+                <p className="text-xs text-muted sm:text-sm">Accepted by</p>
+                <h3 className="font-serif text-lg text-navy sm:text-xl">{offer.lender}</h3>
+                {stats.length > 0 && (
+                    <dl className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-sm sm:grid-cols-4">
+                        {stats.map((s) => (
+                            <div key={s.label}>
+                                <dt className="text-xs text-muted">{s.label}</dt>
+                                <dd className="font-semibold text-navy">{s.value}</dd>
+                            </div>
+                        ))}
+                    </dl>
+                )}
+                {offer.link ? (
+                    <a
+                        className="mt-4 flex min-h-11 w-full items-center justify-center rounded-xl bg-navy px-4 text-sm font-semibold text-white"
+                        href={offer.link}
+                        onClick={() =>
+                            track("select_item", {
+                                item_id: offer.id,
+                                item_name: offer.lender,
+                                item_category: "loan_offer",
+                            })
+                        }
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        Apply with {offer.lender}
+                    </a>
+                ) : (
+                    <p className="mt-4 rounded-xl border border-line bg-ivory px-4 py-3 text-center text-sm text-muted">
+                        Accepted — a LoanSparrow team member will reach out to continue this one.
+                    </p>
+                )}
             </div>
         </article>
     );

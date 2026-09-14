@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import ApplicationDetailPage from "@/app/(account)/dashboard/applications/[id]/page";
-import ApplicationsPage from "@/app/(account)/dashboard/applications/page";
 import DashboardOffersPage from "@/app/(account)/dashboard/offers/page";
 import DashboardHomePage from "@/app/(account)/dashboard/page";
 import ProfilePage from "@/app/(account)/dashboard/profile/page";
@@ -106,8 +104,6 @@ export default function App() {
 
                 <Route element={<DashboardLayout />}>
                     <Route element={<DashboardHomePage />} path="/dashboard" />
-                    <Route element={<ApplicationsPage />} path="/dashboard/applications" />
-                    <Route element={<ApplicationDetailPage />} path="/dashboard/applications/:id" />
                     <Route element={<DashboardOffersPage />} path="/dashboard/offers" />
                     <Route element={<ProfilePage />} path="/dashboard/profile" />
                     <Route element={<SupportPage />} path="/dashboard/support" />

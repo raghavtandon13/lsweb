@@ -4,8 +4,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { type FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
+import { ApiError, getMe, patchMe } from "@/lib/api";
 import { trackFunnel } from "@/lib/analytics";
-import { type EmploymentType, isValidEmail, isValidPan, isValidPincode, loadApply, saveApply } from "@/lib/session";
+import {
+    authToken,
+    type EmploymentType,
+    isValidEmail,
+    isValidPan,
+    isValidPincode,
+    loadApply,
+    saveApply,
+} from "@/lib/session";
 
 const PURPOSES = [
     { value: "medical", label: "Medical" },
@@ -39,13 +48,18 @@ export default function DetailsPage() {
     const [purpose, setPurpose] = useState("other");
     const [hadCibil, setHadCibil] = useState(false);
     const [error, setError] = useState("");
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         const s = loadApply();
-        if (!s?.verified) {
+        const token = authToken();
+        if (!s?.verified || !token) {
             router.replace("/apply");
             return;
         }
+
+        // Local, in-progress edits win over what's saved — the saved profile only fills in
+        // what this tab doesn't already have, so the user only has to touch what's wrong.
         setPincode(s.pincode ?? "");
         setPan(s.pan ?? "");
         setIncome(s.income ?? "");
@@ -55,10 +69,23 @@ export default function DetailsPage() {
         setAmount(s.amount ?? "");
         setPurpose(s.purpose ?? "other");
         setHadCibil(Boolean(s.cibil));
+
+        getMe(token)
+            .then((profile) => {
+                if (!s.pincode && profile.pincode) setPincode(profile.pincode);
+                if (!s.pan && profile.pan) setPan(profile.pan);
+                if (!s.income && profile.income) setIncome(profile.income);
+                if (!s.employment && profile.employment) setEmployment(profile.employment as EmploymentType);
+                if (!s.dob && profile.dob) setDob(profile.dob);
+                if (!s.email && profile.email) setEmail(profile.email);
+            })
+            .catch(() => {
+                // Autofill is a convenience — a failed fetch just leaves the form blank.
+            });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function onSubmit(e: FormEvent) {
+    async function onSubmit(e: FormEvent) {
         e.preventDefault();
         if (!isValidEmail(email)) {
             setError("Enter a valid email ID.");
@@ -85,9 +112,14 @@ export default function DetailsPage() {
             return;
         }
         const s = loadApply();
-        if (!s) return;
+        const token = authToken();
+        if (!s || !token) {
+            router.replace("/apply");
+            return;
+        }
 
         const panNext = pan.toUpperCase();
+        const emailNext = email.trim().toLowerCase();
         const materialChanged =
             s.pincode !== pincode ||
             s.pan !== panNext ||
@@ -96,6 +128,17 @@ export default function DetailsPage() {
             s.dob !== dob ||
             s.amount !== amount;
 
+        setSaving(true);
+        setError("");
+        try {
+            await patchMe(token, { email: emailNext, pan: panNext, pincode, income, employment, dob });
+        } catch (err) {
+            setError(err instanceof ApiError ? err.message : "Could not save your details. Try again.");
+            setSaving(false);
+            return;
+        }
+        setSaving(false);
+
         saveApply({
             ...s,
             pincode,
@@ -103,7 +146,7 @@ export default function DetailsPage() {
             income,
             employment,
             dob,
-            email: email.trim().toLowerCase(),
+            email: emailNext,
             amount,
             purpose,
             ...(materialChanged && s.cibil
@@ -213,8 +256,8 @@ export default function DetailsPage() {
                     <input className="input" onChange={(e) => setDob(e.target.value)} type="date" value={dob} />
                 </Field>
                 {error && <p className="text-sm text-danger">{error}</p>}
-                <Button className="w-full" size="lg" type="submit">
-                    {editing ? "Save details" : "Continue to CIBIL"}
+                <Button className="w-full" disabled={saving} size="lg" type="submit">
+                    {saving ? "Saving…" : editing ? "Save details" : "Continue to CIBIL"}
                 </Button>
             </div>
         </form>

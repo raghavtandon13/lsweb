@@ -5,9 +5,9 @@ import { type FormEvent, useEffect, useState } from "react";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
+import { ApiError, sendOtp } from "@/lib/api";
 import { track, trackFunnel } from "@/lib/analytics";
-import { beginApplyLead, getDemoCustomerByMobile } from "@/lib/demo-customers";
-import { isValidMobile, loadApply, loadAuth } from "@/lib/session";
+import { isValidMobile, loadApply, loadAuth, normaliseMobile, saveApply } from "@/lib/session";
 
 export default function ApplyStartPage() {
     const router = useRouter();
@@ -15,7 +15,7 @@ export default function ApplyStartPage() {
     const [mobile, setMobile] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [error, setError] = useState("");
-    const [demoId, setDemoId] = useState("");
+    const [sending, setSending] = useState(false);
 
     useEffect(() => {
         const existing = loadApply();
@@ -23,22 +23,19 @@ export default function ApplyStartPage() {
             setName(existing.name ?? "");
             setMobile(existing.mobile);
             if (existing.termsAccepted) setTermsAccepted(true);
-            setDemoId(getDemoCustomerByMobile(existing.mobile)?.id ?? "");
             return;
         }
         const auth = loadAuth();
         if (auth?.loggedIn && auth.mobile) {
-            const demo = getDemoCustomerByMobile(auth.mobile);
             setMobile(auth.mobile);
-            setName(auth.name ?? demo?.name ?? "");
-            setDemoId(demo?.id ?? "");
+            setName(auth.name ?? "");
         }
     }, []);
 
-    function onSubmit(e: FormEvent) {
+    async function onSubmit(e: FormEvent) {
         e.preventDefault();
         const n = name.trim();
-        const m = mobile.replace(/\D/g, "").slice(-10);
+        const m = normaliseMobile(mobile);
         if (n.length < 2) {
             setError("Enter your full name.");
             return;
@@ -51,10 +48,29 @@ export default function ApplyStartPage() {
             setError(TERMS_REQUIRED_MESSAGE);
             return;
         }
-        beginApplyLead({ name: n, mobile: m, termsAccepted: true });
-        track("generate_lead", { lead_source: "apply_form" });
-        trackFunnel(1, "apply_start", { lead_source: "apply_form" });
-        router.push("/apply/verify");
+        setSending(true);
+        setError("");
+        try {
+            await sendOtp({ phone: m, name: n, utmSource: "loansparrow_web" });
+            const existing = loadApply();
+            const base = existing && normaliseMobile(existing.mobile) === m ? existing : {};
+            saveApply({
+                ...base,
+                name: n,
+                mobile: m,
+                otpSentAt: new Date().toISOString(),
+                termsAccepted: true,
+                verified: false,
+                status: "draft",
+            });
+            track("generate_lead", { lead_source: "apply_form" });
+            trackFunnel(1, "apply_start", { lead_source: "apply_form" });
+            router.push("/apply/verify");
+        } catch (err) {
+            setError(err instanceof ApiError ? err.message : "Could not send OTP. Try again.");
+        } finally {
+            setSending(false);
+        }
     }
 
     return (
@@ -79,11 +95,7 @@ export default function ApplyStartPage() {
                         autoComplete="tel"
                         className="input"
                         inputMode="numeric"
-                        onChange={(e) => {
-                            const v = e.target.value;
-                            setMobile(v);
-                            setDemoId(getDemoCustomerByMobile(v)?.id ?? "");
-                        }}
+                        onChange={(e) => setMobile(e.target.value)}
                         placeholder="10-digit mobile"
                         value={mobile}
                     />
@@ -97,14 +109,9 @@ export default function ApplyStartPage() {
                     }}
                 />
                 {error && <p className="text-sm text-danger">{error}</p>}
-                <Button className="w-full" disabled={!termsAccepted} size="lg" type="submit">
-                    Send OTP
+                <Button className="w-full" disabled={!termsAccepted || sending} size="lg" type="submit">
+                    {sending ? "Sending…" : "Send OTP"}
                 </Button>
-                {demoId && (
-                    <p className="text-center text-xs text-muted">
-                        Dummy user from src/data/dummy-users/{demoId}.json — same steps as a real journey.
-                    </p>
-                )}
             </div>
         </form>
     );

@@ -2,13 +2,14 @@
 
 import { ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "@/components/layout/logo";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/cn";
 import { nav } from "@/lib/site";
+import { loadAuth } from "@/lib/session";
 
 function DesktopFlyout({ label, children }: { label: string; children: React.ReactNode }) {
     const [open, setOpen] = useState(false);
@@ -34,6 +35,11 @@ function DesktopFlyout({ label, children }: { label: string; children: React.Rea
 
 export function Header() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        setLoggedIn(Boolean(loadAuth()?.loggedIn));
+    }, []);
 
     return (
         <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-md">
@@ -79,9 +85,15 @@ export function Header() {
                         >
                             Check credit score
                         </ButtonLink>
-                        <ButtonLink href="/login" size="sm" variant="outline">
-                            Login
-                        </ButtonLink>
+                        {loggedIn ? (
+                            <ButtonLink href="/dashboard/profile" size="sm" variant="outline">
+                                Profile
+                            </ButtonLink>
+                        ) : (
+                            <ButtonLink href="/login" size="sm" variant="outline">
+                                Login
+                            </ButtonLink>
+                        )}
                         <ButtonLink href="/apply" size="sm" variant="gold">
                             Apply now
                         </ButtonLink>
