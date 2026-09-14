@@ -3,7 +3,7 @@
  * `{ type: "success" | "error", message?, data? }` — see routes/auth.ts and routes/me.ts.
  */
 
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "https://api.loansparrow.com").replace(/\/$/, "");
 
 export class ApiError extends Error {
   constructor(
