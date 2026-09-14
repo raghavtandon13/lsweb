@@ -60,14 +60,8 @@ export default function App() {
                     <Route element={<HelpPage />} path="/help" />
                     <Route element={<HelpPage />} path="/help/:tab" />
                     <Route element={<Navigate replace to="/help" />} path="/how-it-works" />
-                    <Route
-                        element={<Navigate replace to="/help/faqs" />}
-                        element={<Navigate replace to="/help/faqs" />}
-                    />
-                    <Route
-                        element={<Navigate replace to="/help/contact" />}
-                        element={<Navigate replace to="/help/contact" />}
-                    />
+                    <Route element={<Navigate replace to="/help/faqs" />} path="/faqs" />
+                    <Route element={<Navigate replace to="/help/contact" />} path="/contact" />
                     <Route element={<Navigate replace to="/help/about" />} path="/about" />
                     <Route element={<PrivacyPage />} path="/privacy-policy" />
                     <Route element={<TermsPage />} path="/terms" />
