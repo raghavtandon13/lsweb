@@ -4,8 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { type FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { ApiError, getMe, patchMe } from "@/lib/api";
 import { trackFunnel } from "@/lib/analytics";
+import { ApiError, getMe, patchMe } from "@/lib/api";
 import {
     authToken,
     type EmploymentType,

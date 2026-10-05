@@ -5,8 +5,8 @@ import { type FormEvent, useEffect, useState } from "react";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { ApiError, sendOtp } from "@/lib/api";
 import { track, trackFunnel } from "@/lib/analytics";
+import { ApiError, sendOtp } from "@/lib/api";
 import { isValidMobile, loadApply, loadAuth, normaliseMobile, saveApply } from "@/lib/session";
 
 export default function ApplyStartPage() {

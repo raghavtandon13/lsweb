@@ -114,7 +114,13 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                         Apply now
                     </ButtonLink>
                     {loggedIn ? (
-                        <ButtonLink className="w-full" href="/dashboard/profile" onClick={onClose} size="lg" variant="outline">
+                        <ButtonLink
+                            className="w-full"
+                            href="/dashboard/profile"
+                            onClick={onClose}
+                            size="lg"
+                            variant="outline"
+                        >
                             My profile
                         </ButtonLink>
                     ) : (

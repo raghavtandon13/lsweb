@@ -8,8 +8,8 @@ import { Logo } from "@/components/layout/logo";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { ApiError, sendOtp, verifyOtp } from "@/lib/api";
 import { track } from "@/lib/analytics";
+import { ApiError, sendOtp, verifyOtp } from "@/lib/api";
 import { isValidMobile, normaliseMobile, saveAuthForMobile } from "@/lib/session";
 
 const OTP_LENGTH = 4;
@@ -82,7 +82,9 @@ export default function LoginPage() {
                         {step === "mobile" ? "Login with mobile OTP" : "Enter OTP"}
                     </h1>
                     <p className="mt-2 text-sm text-muted">
-                        {step === "mobile" ? "We send an OTP to your mobile. No password needed." : "Sent to your mobile."}
+                        {step === "mobile"
+                            ? "We send an OTP to your mobile. No password needed."
+                            : "Sent to your mobile."}
                     </p>
                     {step === "mobile" ? (
                         <Field className="mt-8" label="Mobile">

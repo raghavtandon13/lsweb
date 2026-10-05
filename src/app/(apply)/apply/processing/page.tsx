@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ApiError, getOffers } from "@/lib/api";
 import { trackFunnel } from "@/lib/analytics";
+import { ApiError, getOffers } from "@/lib/api";
 import { buildCibilReport } from "@/lib/cibil";
 import { authToken, loadApply, saveApply } from "@/lib/session";
 

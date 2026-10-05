@@ -8,8 +8,8 @@ import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/cn";
-import { nav } from "@/lib/site";
 import { loadAuth } from "@/lib/session";
+import { nav } from "@/lib/site";
 
 function DesktopFlyout({ label, children }: { label: string; children: React.ReactNode }) {
     const [open, setOpen] = useState(false);

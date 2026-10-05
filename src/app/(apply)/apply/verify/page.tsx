@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { ApiError, resendOtp, verifyOtp } from "@/lib/api";
 import { trackFunnel } from "@/lib/analytics";
+import { ApiError, resendOtp, verifyOtp } from "@/lib/api";
 import { maskMobile } from "@/lib/format";
 import { loadApply, saveApply, saveAuthForMobile } from "@/lib/session";
 

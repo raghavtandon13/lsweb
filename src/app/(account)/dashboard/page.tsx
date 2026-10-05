@@ -34,7 +34,7 @@ export default function DashboardHomePage() {
 
     return (
         <div className="space-y-6">
-            <DashHead eyebrow={`Hi, ${name}`} title="Dashboard" body="Your offers and profile, for this mobile." />
+            <DashHead body="Your offers and profile, for this mobile." eyebrow={`Hi, ${name}`} title="Dashboard" />
 
             <section>
                 <div className="mb-3 flex items-center justify-between gap-3">

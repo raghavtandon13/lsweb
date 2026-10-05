@@ -6,8 +6,8 @@ import { type FormEvent, useState } from "react";
 import { TERMS_REQUIRED_MESSAGE, TermsAccept } from "@/components/apply/terms-accept";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { ApiError, sendOtp } from "@/lib/api";
 import { track, trackFunnel } from "@/lib/analytics";
+import { ApiError, sendOtp } from "@/lib/api";
 import { cn } from "@/lib/cn";
 import { isValidMobile, loadApply, saveApply } from "@/lib/session";
 
@@ -109,7 +109,13 @@ export function QuickApply({ embedded = false }: { embedded?: boolean }) {
 
                 {error && <p className="mt-3 text-base text-danger">{error}</p>}
 
-                <Button className="mt-6 w-full" disabled={!termsAccepted || sending} size="lg" type="submit" variant="gold">
+                <Button
+                    className="mt-6 w-full"
+                    disabled={!termsAccepted || sending}
+                    size="lg"
+                    type="submit"
+                    variant="gold"
+                >
                     {sending ? "Sending…" : "Get OTP & continue"}
                 </Button>
 
