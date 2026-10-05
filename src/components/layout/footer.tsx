@@ -72,10 +72,14 @@ export function Footer() {
                     </div>
                 </div>
                 <div className="mt-14 border-t border-white/10 pt-6 text-sm leading-7 text-white/90">
-                    LoanSparrow is a marketplace. Credit facilities are extended by partner banks and NBFCs at their
-                    sole discretion. *Rates are indicative and lender-specific. Read the offer, KFS, and MITC before you
-                    accept. Not for US persons.
+                    Copyright © 2025 True Focus Consultant Solutions Limited Liability Partnership. All rights
+                    reserved.
                 </div>
+                {/* <div className="mt-14 border-t border-white/10 pt-6 text-sm leading-7 text-white/90"> */}
+                {/*     LoanSparrow is a marketplace. Credit facilities are extended by partner banks and NBFCs at their */}
+                {/*     sole discretion. *Rates are indicative and lender-specific. Read the offer, KFS, and MITC before you */}
+                {/*     accept. Not for US persons. */}
+                {/* </div> */}
             </Container>
         </footer>
     );
